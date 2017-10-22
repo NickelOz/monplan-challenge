@@ -1,7 +1,8 @@
-import { SEARCH_TERM } from '../actions/'
+import { SEARCH_TERM, UPDATE_ALL_UNIT_CODES } from '../actions/'
 
 const initialState = {
-  query: 'monPlan'
+  query: 'monPlan',
+  allUnits: null
 }
 
 function unitApp (state = initialState, action) {
@@ -11,6 +12,13 @@ function unitApp (state = initialState, action) {
       return Object.assign({}, state,
         {
           query: action.query
+        }
+      )
+    case UPDATE_ALL_UNIT_CODES:
+      console.log(`updating unit list, now contains ${action.unitCodes.length} items`)
+      return Object.assign({}, state,
+        {
+          allUnitCodes: action.unitCodes
         }
       )
     default:
