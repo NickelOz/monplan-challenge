@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import 'whatwg-fetch'
 import logo from './logo.svg'
 import './App.css'
-import ExampleComponent from '../components/example/'
+import SearchBar from '../containers/SearchBar'
+
 class App extends Component {
   render () {
     return (
@@ -10,10 +12,9 @@ class App extends Component {
           <img src={logo} className='App-logo' alt='logo' />
           <h1 className='App-title'>Monash Handbook Unit Viewer</h1>
         </header>
-        <p className='App-intro'>
-          {/* INSERT COMPONENTS REGION */}
-          <ExampleComponent />
-        </p>
+        <div className='App-main'>
+          <SearchBar />
+        </div>
       </div>
     )
   }
