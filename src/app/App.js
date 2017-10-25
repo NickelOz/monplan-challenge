@@ -1,36 +1,15 @@
 import React, { Component } from 'react'
 import 'whatwg-fetch'
 import { connect } from 'react-redux'
-import { updateAllUnitCodes } from '../actions'
+import { fetchAllUnits } from '../actions'
 import logo from './logo.svg'
 import './App.css'
 import SearchBar from '../containers/SearchBar'
+import UnitInformation from '../containers/UnitInformation'
 
 class App extends Component {
   componentDidMount () {
-    fetch('https://monplan-api-dev.appspot.com/basic/units')
-      .then(response => {
-        console.log(response.ok)
-        if (response.ok && response.headers.get('content-type').includes('application/json')) {
-          return response.json()
-          // console.log('running')
-          // const units = Array.from(response.json(), unit => {
-          //   console.log('running')
-          //   return unit.unitCode
-          // })
-          // this.props.updateAllUnits(units)
-        } else {
-          // this.props.updateAllUnits([])
-          return []
-        }
-      })
-      .then(json => {
-        const units = Array.from(json, unit => {
-          console.log(unit.unitCode)
-          return unit['unitCode']
-        })
-        this.props.updateAllUnitCodes(units)
-      })
+    this.props.fetchAllUnits()
   }
 
   render () {
@@ -42,6 +21,7 @@ class App extends Component {
         </header>
         <div className='App-main'>
           <SearchBar />
+          {<UnitInformation />}
         </div>
       </div>
     )
@@ -50,8 +30,8 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateAllUnitCodes: unitCodes => {
-      dispatch(updateAllUnitCodes(unitCodes))
+    fetchAllUnits: () => {
+      dispatch(fetchAllUnits())
     }
   }
 }

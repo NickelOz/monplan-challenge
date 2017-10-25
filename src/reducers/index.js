@@ -1,24 +1,42 @@
-import { SEARCH_TERM, UPDATE_ALL_UNIT_CODES } from '../actions/'
+import { combineReducers } from 'redux'
+import {
+  UPDATE_QUERY, SEARCH_CHECK, SEARCH_VALID, SEARCH_INVALID,
+  ALL_UNITS_REQUEST, ALL_UNITS_SUCCESS, ALL_UNITS_FAILURE,
+  UNIT_DETAILS_REQUEST, UNIT_DETAILS_SUCCESS, UNIT_DETAILS_FAILURE
+ } from '../actions/'
 
-const initialState = {
-  query: 'monPlan',
-  allUnits: null
+const defaultSearchState = {
+  query: '',
+  validQuery: false
 }
 
-function unitApp (state = initialState, action) {
+function search (state = defaultSearchState, action) {
   switch (action.type) {
-    case SEARCH_TERM:
-      console.log(`new search term: ${action.query}`)
+    case UPDATE_QUERY:
       return Object.assign({}, state,
         {
-          query: action.query
+          query: action.query,
+          validQuery: false
         }
       )
-    case UPDATE_ALL_UNIT_CODES:
-      console.log(`updating unit list, now contains ${action.unitCodes.length} items`)
+    case SEARCH_CHECK:
+      // invalidate the current search
       return Object.assign({}, state,
         {
-          allUnitCodes: action.unitCodes
+          validQuery: false
+        }
+      )
+    case SEARCH_VALID:
+      return Object.assign({}, state,
+        {
+          validQuery: true,
+          currentUnit: action.query
+        }
+      )
+    case SEARCH_INVALID:
+      return Object.assign({}, state,
+        {
+          validQuery: false
         }
       )
     default:
@@ -26,4 +44,81 @@ function unitApp (state = initialState, action) {
   }
 }
 
-export default unitApp
+function allUnits (state = {}, action) {
+  switch (action.type) {
+    case ALL_UNITS_REQUEST:
+      return Object.assign({}, state,
+        {
+          isFetching: true,
+          didInvalidate: false
+        }
+      )
+    case ALL_UNITS_SUCCESS:
+      return Object.assign({}, state,
+        {
+          isFetching: false,
+          didInvalidate: false,
+          items: action.response
+        }
+      )
+    case ALL_UNITS_FAILURE:
+      return Object.assign({}, state,
+        {
+          isFetching: false
+        }
+      )
+    default:
+      return state
+  }
+}
+
+function unitDetails (state = {}, action) {
+  switch (action.type) {
+    case UNIT_DETAILS_REQUEST:
+      return Object.assign({}, state,
+        {
+          isFetching: true,
+          didInvalidate: true
+        }
+      )
+    case UNIT_DETAILS_SUCCESS:
+      return Object.assign({}, state,
+        {
+          isFetching: false,
+          didInvalidate: false,
+          unitDetails: action.response
+        }
+      )
+    case UNIT_DETAILS_FAILURE:
+      return Object.assign({}, action,
+        {
+          isFetching: false
+        }
+      )
+    default:
+      return state
+  }
+}
+
+function cachedUnits (state = {}, action) {
+  switch (action.type) {
+    case UNIT_DETAILS_REQUEST:
+    case UNIT_DETAILS_SUCCESS:
+    case UNIT_DETAILS_FAILURE:
+      return Object.assign({}, state,
+        {
+          [action.unitCode]: unitDetails(state, action)
+        }
+      )
+    default:
+      return state
+  }
+}
+
+const root = combineReducers({
+  search,
+  allUnits,
+  cachedUnits
+})
+
+export default root

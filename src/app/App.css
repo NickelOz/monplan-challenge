@@ -31,10 +31,29 @@
 }
 
 .App-input {
+  box-sizing: border-box;
+  vertical-align: top;
   height: 50px;
   width: 250px;
-  border-radius: 5px;
+  border: 3px solid #111111;
+  margin: 0;
   padding: 5px;
   font-size: 24px;
   color: #111111;
+}
+
+.App-button {
+  box-sizing: border-box;
+  height: 50px;
+  width: 50px;
+  color: #eeeeee;
+  padding: 5px;
+  margin: 0;
+  border: 3px solid #111111;
+  border-left: none;
+  background-color: #006cab;
+}
+
+.App-unitDetails {
+  
 }

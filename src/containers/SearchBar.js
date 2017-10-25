@@ -1,31 +1,42 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import SearchBar from '../components/SearchBar'
-import { searchTerm } from '../actions/'
+import SearchInput from '../components/SearchInput'
+import SearchGo from '../components/SearchGo'
+import { updateQuery, searchIfValid } from '../actions/'
 
 class SearchBarContainer extends Component {
   render () {
     return (
-      <SearchBar
-        value={this.props.value}
-        onFormUpdate={newQuery =>
-          this.props.onFormUpdate(newQuery)
-        }
-      />
+      <div
+        id='search'
+      >
+        <SearchInput
+          value={this.props.value}
+          onFormUpdate={newQuery =>
+            this.props.onFormUpdate(newQuery)
+          }
+        />
+        <SearchGo
+          onClick={() => this.props.onClick()}
+        />
+      </div>
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    value: state.query
+    value: state.search.query
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onFormUpdate: query => {
-      dispatch(searchTerm(query))
+      dispatch(updateQuery(query))
+    },
+    onClick: () => {
+      dispatch(searchIfValid())
     }
   }
 }
