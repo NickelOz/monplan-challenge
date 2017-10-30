@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 
-class SearchGo extends Component {
+class SearchResultButton extends Component {
   render () {
     return (
       <button
         className='App-button'
         onClick={() => this.props.onClick()}
       >
-        <i className='material-icons'>search</i>
+        <h1>{this.props.unitCode}</h1>
+        <h2>{this.props.unitName}</h2>
       </button>
     )
   }
 }
 
-export default SearchGo
+export default SearchResultButton

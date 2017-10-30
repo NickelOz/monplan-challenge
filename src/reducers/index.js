@@ -8,7 +8,8 @@ import {
  } from '../actions/'
 
 const defaultSearchState = {
-  query: ''
+  query: '',
+  results: []
 }
 
 function search (state = defaultSearchState, action) {
