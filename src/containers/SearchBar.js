@@ -8,7 +8,7 @@ class SearchBarContainer extends Component {
   render () {
     return (
       <div
-        id='search'
+        id='App-search'
       >
         <SearchInput
           value={this.props.value}

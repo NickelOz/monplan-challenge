@@ -3,20 +3,23 @@ import SearchResultButton from './SearchResultButton'
 
 class SearchResultList extends Component {
   render () {
-    console.log(this.props.results)
     return (
       <div
         id='App-results'
       >
         {
-          this.props.results.map(result => {
-            return (
-              <SearchResultButton
-                onClick={() => this.props.onResultButtonClick(result.unitCode)}
-                unitCode={result.unitCode}
-                unitName={result.unitName}
-              />
-            )
+          this.props.results.map((result, index) => {
+            if (index < 5) {
+              return (
+                <SearchResultButton
+                  onClick={() => this.props.onResultButtonClick(result.unitCode)}
+                  unitCode={result.unitCode}
+                  unitName={result.unitName}
+                />
+              )
+            } else {
+              return null
+            }
           })
         }
       </div>
