@@ -1,42 +1,35 @@
 import { combineReducers } from 'redux'
 import {
-  UPDATE_QUERY, SEARCH_CHECK, SEARCH_VALID, SEARCH_INVALID,
+  UPDATE_SEARCH_QUERY,
+  REQUEST_SEARCH_RESULTS, RECEIVE_SEARCH_RESULTS,
   ALL_UNITS_REQUEST, ALL_UNITS_SUCCESS, ALL_UNITS_FAILURE,
+  UPDATE_CURRENT_UNIT,
   UNIT_DETAILS_REQUEST, UNIT_DETAILS_SUCCESS, UNIT_DETAILS_FAILURE
  } from '../actions/'
 
 const defaultSearchState = {
-  query: '',
-  validQuery: false
+  query: ''
 }
 
 function search (state = defaultSearchState, action) {
   switch (action.type) {
-    case UPDATE_QUERY:
+    case UPDATE_SEARCH_QUERY:
       return Object.assign({}, state,
         {
-          query: action.query,
-          validQuery: false
+          query: action.query
         }
       )
-    case SEARCH_CHECK:
-      // invalidate the current search
+    case REQUEST_SEARCH_RESULTS:
+      // invalidate the current search, begin loading new results
       return Object.assign({}, state,
         {
-          validQuery: false
+          results: []
         }
       )
-    case SEARCH_VALID:
+    case RECEIVE_SEARCH_RESULTS:
       return Object.assign({}, state,
         {
-          validQuery: true,
-          currentUnit: action.query
-        }
-      )
-    case SEARCH_INVALID:
-      return Object.assign({}, state,
-        {
-          validQuery: false
+          results: action.items
         }
       )
     default:
@@ -50,7 +43,7 @@ function allUnits (state = {}, action) {
       return Object.assign({}, state,
         {
           isFetching: true,
-          didInvalidate: false
+          didInvalidate: true
         }
       )
     case ALL_UNITS_SUCCESS:
@@ -115,10 +108,20 @@ function cachedUnits (state = {}, action) {
   }
 }
 
+function currentUnit (state = '', action) {
+  switch (action.type) {
+    case UPDATE_CURRENT_UNIT:
+      return action.unitCode
+    default:
+      return state
+  }
+}
+
 const root = combineReducers({
   search,
   allUnits,
-  cachedUnits
+  cachedUnits,
+  currentUnit
 })
 
 export default root

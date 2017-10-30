@@ -5,6 +5,7 @@
   - 'Could retrieve unit details for 'AAA0001', please try again!'
  - Set conditional displays for unit information
   - before call => waiting on API response => display response / handle failure
+ - Improve search method
 
 ## GENERAL NOTES
 

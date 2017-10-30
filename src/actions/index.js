@@ -1,59 +1,5 @@
 import 'whatwg-fetch'
 
-// SEARCH BAR
-
-export const UPDATE_QUERY = 'UPDATE_QUERY'
-export const SEARCH_CHECK = 'SEARCH_CHECK'
-export const SEARCH_VALID = 'SEARCH_VALID'
-export const SEARCH_INVALID = 'SEARCH_INVALID'
-
-export const updateQuery = query => ({
-  type: UPDATE_QUERY,
-  query
-})
-
-export const searchCheck = () => ({
-  type: SEARCH_CHECK
-})
-
-export const searchValid = query => ({
-  type: SEARCH_VALID,
-  query
-})
-
-export const searchInvalid = () => ({
-  type: SEARCH_INVALID
-})
-
-export const searchIfValid = () => {
-  return (dispatch, getState) => {
-    dispatch(searchCheck())
-
-    const currentState = getState()
-    const query = currentState.search.query
-    const allUnits = currentState.allUnits.items
-    let isValidSearch = false
-
-    // exit if items does not exist
-    if (!allUnits) {
-      return dispatch(searchInvalid())
-    }
-
-    currentState.allUnits.items.forEach(unit => {
-      if (query === unit.unitCode) {
-        isValidSearch = true
-      }
-    })
-
-    if (isValidSearch) {
-      dispatch(fetchUnitDetails(query))
-      dispatch(searchValid(query))
-    } else {
-      dispatch(searchInvalid())
-    }
-  }
-}
-
 // handles calls to the monplan API
 // does not resolve the call, returns the promise!
 const API_ROOT = 'https://monplan-api-dev.appspot.com'
@@ -69,8 +15,60 @@ const callAPI = endpoint => {
     })
 }
 
-// HANDLES REQUESTS FOR ALL UNITS
+// HANDLES SEARCH QUERIES AND THE LOADING OF RESULTS
+export const UPDATE_SEARCH_QUERY = 'UPDATE_SEARCH_QUERY'
+export const REQUEST_SEARCH_RESULTS = 'REQUEST_SEARCH_RESULTS'
+export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS'
 
+export const updateSearchQuery = query => ({
+  type: UPDATE_SEARCH_QUERY,
+  query
+})
+
+export const requestSearchResults = () => ({
+  type: REQUEST_SEARCH_RESULTS
+})
+
+export const receiveSearchResults = (query, items) => ({
+  type: RECEIVE_SEARCH_RESULTS,
+  query,
+  items
+})
+
+export const updateSearch = query => {
+  return (dispatch, getState) => {
+    dispatch(updateSearchQuery(query))
+    dispatch(requestSearchResults())
+
+    const currentState = getState()
+    const target = query.toLowerCase()
+    const allUnits = currentState.allUnits
+    let results = []
+
+    // exit if there is not a currently valid list of units
+    if (allUnits.didInvalidate || allUnits.isFetching) {
+      return dispatch(receiveSearchResults(query, []))
+    }
+
+    // query must be at least letters long to give our results some accuracy
+    if (target.length < 3) {
+      return dispatch(receiveSearchResults(target, []))
+    }
+
+    allUnits.items.forEach(unit => {
+      if (unit.unitCode.toLowerCase().includes(target) || unit.unitName.toLowerCase().includes(target)) {
+        results.push({
+          unitCode: unit.unitCode,
+          unitName: unit.unitName
+        })
+      }
+    })
+
+    dispatch(receiveSearchResults(query, results))
+  }
+}
+
+// HANDLES REQUESTS FOR ALL UNITS
 export const ALL_UNITS_REQUEST = 'ALL_UNITS_REQUEST'
 export const ALL_UNITS_SUCCESS = 'ALL_UNITS_SUCCESS'
 export const ALL_UNITS_FAILURE = 'ALL_UNITS_FAILURE'
@@ -98,10 +96,16 @@ export const fetchAllUnits = () => {
   }
 }
 
-// HANDLES INDIVIDUAL UNIT DETAIL REQUESTS
+// HANDLES REQUESTS FOR INDIVIDUAL UNITS
+export const UPDATE_CURRENT_UNIT = 'UPDATE_CURRENT_UNIT'
 export const UNIT_DETAILS_REQUEST = 'UNIT_DETAILS_REQUEST'
 export const UNIT_DETAILS_SUCCESS = 'UNIT_DETAILS_SUCCESS'
 export const UNIT_DETAILS_FAILURE = 'UNIT_DETAILS_FAILURE'
+
+export const updateCurrentUnit = unitCode => ({
+  type: UPDATE_CURRENT_UNIT,
+  unitCode
+})
 
 export const fetchUnitDetails = unitCode => {
   return dispatch => {

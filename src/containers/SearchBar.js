@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SearchInput from '../components/SearchInput'
-import SearchGo from '../components/SearchGo'
-import { updateQuery, searchIfValid } from '../actions/'
+import { updateSearch, updateCurrentUnit } from '../actions/'
 
 class SearchBarContainer extends Component {
   render () {
@@ -16,9 +15,6 @@ class SearchBarContainer extends Component {
             this.props.onFormUpdate(newQuery)
           }
         />
-        <SearchGo
-          onClick={() => this.props.onClick()}
-        />
       </div>
     )
   }
@@ -26,17 +22,18 @@ class SearchBarContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    value: state.search.query
+    value: state.search.query,
+    results: state.search.results
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onFormUpdate: query => {
-      dispatch(updateQuery(query))
+      dispatch(updateSearch(query))
     },
-    onClick: () => {
-      dispatch(searchIfValid())
+    onResultClick: unitCode => {
+      dispatch(updateCurrentUnit(unitCode))
     }
   }
 }
