@@ -11,21 +11,20 @@ class UnitInformationContainer extends Component {
   render () {
     return (
       <UnitInformation
-        unit={this.props.currentUnit}
+        unitCode={this.props.currentUnit}
       />
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { validQuery, currentUnit } = state.search
+  const currentUnit = state.currentUnit
   const defaultUnitState = {
     isFetching: true,
     unitDetails: {}
   }
   const { isFetching, didInvalidate, unitDetails } = state.cachedUnits[currentUnit] || defaultUnitState
   return {
-    validQuery: validQuery,
     currentUnit: currentUnit,
     isFetching: isFetching,
     didInvalidate: didInvalidate,

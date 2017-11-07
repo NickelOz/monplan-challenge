@@ -6,6 +6,8 @@
  - Set conditional displays for unit information
   - before call => waiting on API response => display response / handle failure
  - Improve search method
+ - Implement Filtering
+ - Fix button sending search request failure
 
 ## GENERAL NOTES
 

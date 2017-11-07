@@ -5,7 +5,7 @@ class UnitInformation extends Component {
     if (this.props.currentUnit !== null) {
       return (
         <div className='App-UnitDetails' >
-          <h1>{this.props.currentUnitCode}</h1>
+          <h1>{this.props.unitCode}</h1>
         </div>
       )
     } else {

@@ -12,7 +12,7 @@ class SearchResultList extends Component {
             if (index < 5) {
               return (
                 <SearchResultButton
-                  onClick={() => this.props.onResultButtonClick(result.unitCode)}
+                  onClick={unitCode => this.props.onResultButtonClick(unitCode)}
                   unitCode={result.unitCode}
                   unitName={result.unitName}
                 />

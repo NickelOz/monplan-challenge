@@ -21,7 +21,7 @@ class App extends Component {
         </header>
         <div className='App-main'>
           <SearchBar />
-          {<UnitInformation />}
+          <UnitInformation />
         </div>
       </div>
     )
