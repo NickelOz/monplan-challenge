@@ -101,7 +101,7 @@ function cachedUnits (state = {}, action) {
     case UNIT_DETAILS_FAILURE:
       return Object.assign({}, state,
         {
-          [action.unitCode]: unitDetails(state, action)
+          [action.unitCode]: unitDetails(state[action.unitCode], action)
         }
       )
     default:

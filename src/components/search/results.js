@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SearchResultButton from './SearchResultButton'
 
 class SearchResultList extends Component {
   render () {
@@ -11,11 +10,13 @@ class SearchResultList extends Component {
           this.props.results.map((result, index) => {
             if (index < 5) {
               return (
-                <SearchResultButton
+                <button
+                  className='App-button'
                   onClick={() => this.props.onResultButtonClick(result.unitCode)}
-                  unitCode={result.unitCode}
-                  unitName={result.unitName}
-                />
+                >
+                  <h1>{result.unitCode}</h1>
+                  <h2>{result.unitName}</h2>
+                </button>
               )
             } else {
               return null

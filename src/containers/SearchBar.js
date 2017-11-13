@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import SearchInput from '../components/SearchInput'
-import SearchResultList from '../components/SearchResultList'
+import SearchInput from '../components/search/input'
+import SearchResults from '../components/search/results'
 import { updateSearch, updateCurrentUnit } from '../actions/'
 
 class SearchBarContainer extends Component {
@@ -16,7 +16,7 @@ class SearchBarContainer extends Component {
             this.props.onFormUpdate(newQuery)
           }
         />
-        <SearchResultList
+        <SearchResults
           onResultButtonClick={unitCode => this.props.onResultButtonClick(unitCode)}
           results={this.props.results}
         />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import 'whatwg-fetch'
-import UnitInformation from '../components/UnitInformation'
+import UnitInformation from '../components/unit/'
 import { fetchUnitDetailsIfNeeded } from '../actions'
 
 class UnitInformationContainer extends Component {
@@ -31,13 +31,14 @@ class UnitInformationContainer extends Component {
   }
 }
 
+const defaultUnitState = {
+  isFetching: true,
+  didInvalidate: false,
+  unitDetails: {}
+}
+
 const mapStateToProps = state => {
   const unitCode = state.currentUnit
-  const defaultUnitState = {
-    isFetching: true,
-    didInvalidate: false,
-    unitDetails: {}
-  }
   const { isFetching, didInvalidate, unitDetails } = state.cachedUnits[unitCode] || defaultUnitState
   return {
     unitCode: unitCode,
