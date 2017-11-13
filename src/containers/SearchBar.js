@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SearchInput from '../components/SearchInput'
 import SearchResultList from '../components/SearchResultList'
-import { updateSearch, updateCurrentUnit, fetchUnitDetails } from '../actions/'
+import { updateSearch, updateCurrentUnit } from '../actions/'
 
 class SearchBarContainer extends Component {
   render () {
@@ -39,7 +39,6 @@ const mapDispatchToProps = dispatch => {
     },
     onResultButtonClick: unitCode => {
       dispatch(updateCurrentUnit(unitCode))
-      dispatch(fetchUnitDetails(unitCode))
     }
   }
 }

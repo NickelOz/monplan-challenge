@@ -5,7 +5,7 @@ class SearchResultButton extends Component {
     return (
       <button
         className='App-button'
-        onClick={() => this.props.onClick(this.props.unitCode)}
+        onClick={() => this.props.onClick()}
       >
         <h1>{this.props.unitCode}</h1>
         <h2>{this.props.unitName}</h2>

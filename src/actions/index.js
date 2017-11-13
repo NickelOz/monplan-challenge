@@ -131,3 +131,12 @@ export const fetchUnitDetails = unitCode => {
     )
   }
 }
+
+export const fetchUnitDetailsIfNeeded = unitCode => {
+  return (dispatch, getState) => {
+    const currentState = getState()
+    if (!currentState.cachedUnits[unitCode]) {
+      dispatch(fetchUnitDetails(unitCode))
+    }
+  }
+}
