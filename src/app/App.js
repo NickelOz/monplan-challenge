@@ -17,9 +17,13 @@ class App extends Component {
       <div className='App'>
         <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Monash Handbook Unit Viewer</h1>
+          {/* <h1 className='App-title'>Monash Handbook Unit Viewer</h1> */}
         </header>
         <div className='App-main'>
+          <div className='App-title'>
+            <h1>MUSE</h1>
+            <h2>Monash Unit Search Engine</h2>
+          </div>
           <SearchBar />
           <UnitInformation />
         </div>

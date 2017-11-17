@@ -1,20 +1,19 @@
 .App {
   text-align: center;
+  background-color: #0485ca;
+  min-height: 100vh;
 }
 
 .App-logo {
-  height: 80px;
+  height: 100%;
 }
 
 .App-header {
   background-color: #006cab;
-  height: 150px;
-  padding: 20px;
+  height: 50px;
+  padding: 10px;
   color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
+  text-align: left;
 }
 
 .App-main {
@@ -30,21 +29,35 @@
   to { transform: rotate(360deg); }
 }
 
+.App-title {
+  color: #eeeeee;
+}
+
+.App-title > h1 {
+  font-size: 8vh;
+  margin: 40px;
+}
+.App-title > h2 {
+  font-size: 4vh;
+  margin: 20px;
+}
+
 .App-input {
   box-sizing: border-box;
   vertical-align: top;
-  height: 50px;
-  width: 250px;
+  height: 60px;
+  width: 280px;
   margin: 0;
-  padding: 5px;
+  padding: 0 10px;
+  vertical-align: center;
   border: none;
-  font-size: 24px;
+  font-size: 30px;
   color: #111111;
 }
 
 .App-button {
   box-sizing: border-box;
-  color: #eeeeee;
+  color: #111111;
   padding: 5px;
   margin: 0 auto;
   border: none;
@@ -54,7 +67,7 @@
 
 #App-search {
   border: 2px solid #111111;
-  margin: 0 auto;
+  margin: 40px auto;
   width: 300px;
 }
 
@@ -87,6 +100,38 @@
   color: #333333;
 }
 
-.App-unitDetails {
-  
+.App-unit {
+  width: 80%;
+  min-width: 300px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #eeeeee;
+  border: 2px solid #111111;
+  text-align: left;
+}
+
+.App-unit > div {
+  margin: 10px;
+}
+
+.App-unitHeader > h1, h2, h3 {
+  margin: 10px 0;
+}
+
+.App-unitHeader > h1 {
+  font-size: 28px;
+}
+.App-unitHeader > h2 {
+  font-size: 24px;
+}
+.App-unitHeader > h3 {
+  font-size: 20px;
+}
+
+.App-unitDesc > p {
+  border: 1px solid #111111;
+  background-color: #dddddd;
+  padding: 10px;
+  font-size: 14px;
 }

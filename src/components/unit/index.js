@@ -19,16 +19,47 @@ class UnitInformation extends Component {
       if (this.props.unitDetails) {
         body = (
           <div>
-            <h2>{this.props.unitDetails.unitName}</h2>
-            <p>{this.props.unitDetails.description}</p>
-            <p>
-              {
-                // detect any units and convert them into buttons, other leave the text untouched
-                this.getUnits(this.props.unitDetails.preqs).map(phrase => {
-                  return (phrase)
-                })
-              }
-            </p>
+            <div className='App-unitHeader'>
+              <h1>{this.props.unitCode}</h1>
+              <h2>{this.props.unitDetails.unitName}</h2>
+              <h3>{this.props.unitDetails.faculty}</h3>
+              <h3>
+                {this.props.unitDetails.locationAndTime.map((block, index) => {
+                  return ((index > 0) ? ', ' : ' ') + block.location
+                })}
+                {' Campus'}
+              </h3>
+            </div>
+            <div className='App-unitDesc'>
+              <p>{this.props.unitDetails.description}</p>
+            </div>
+            <div className='App-unitRatings '>
+              <h4>Other students say...</h4>
+              <h5>LEARN</h5><p>{this.props.unitDetails.learnScore}</p>
+              <h5>LOVE</h5><p>{this.props.unitDetails.enjoyScore}</p>
+            </div>
+            <div className='App-unitPreqs'>
+              <h5>Prerequisites</h5>
+              <p>
+                {
+                  // detect any units and convert them into buttons, other leave the text untouched
+                  this.getUnits(this.props.unitDetails.preqs).map(phrase => {
+                    return (phrase)
+                  })
+                }
+              </p>
+            </div>
+            <div className='App-unitProh'>
+              <h5>Prohibitions</h5>
+              <p>
+                {
+                  // detect any units and convert them into buttons, other leave the text untouched
+                  this.getUnits(this.props.unitDetails.proh).map(phrase => {
+                    return (phrase)
+                  })
+                }
+              </p>
+            </div>
           </div>
         )
       }
@@ -36,8 +67,7 @@ class UnitInformation extends Component {
     // only render unit details if a unit has been selected
     if (this.props.unitCode !== '') {
       return (
-        <div className='App-UnitDetails'>
-          <h1>{this.props.unitCode}</h1>
+        <div className='App-unit'>
           {body}
         </div>
       )
