@@ -5,12 +5,12 @@ import 'whatwg-fetch'
 const API_ROOT = 'https://monplan-api-dev.appspot.com'
 const callAPI = endpoint => {
   const url = `${API_ROOT}/${endpoint}`
-  return fetch(url)
-    .then(response => {
+  return fetch(url).then(
+    response => {
       if (response.ok) {
         return response.json()
       } else {
-        return Promise.reject(new Error('something went wrong when caling the monPlan API'))
+        return Promise.reject(new Error('something went wrong when calling the monPlan API'))
       }
     })
 }
@@ -85,13 +85,13 @@ export const fetchAllUnits = () => {
           type: ALL_UNITS_SUCCESS,
           response
         })
-      },
-      error => {
-        dispatch({
-          type: ALL_UNITS_FAILURE,
-          error
-        })
-      }
+      }).catch(
+        error => {
+          dispatch({
+            type: ALL_UNITS_FAILURE,
+            error
+          })
+        }
     )
   }
 }
@@ -121,10 +121,11 @@ export const fetchUnitDetails = unitCode => {
           unitCode,
           response
         })
-      },
+      }).catch(
       error => {
         dispatch({
           type: UNIT_DETAILS_FAILURE,
+          unitCode,
           error
         })
       }

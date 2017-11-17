@@ -84,7 +84,7 @@ function unitDetails (state = {}, action) {
         }
       )
     case UNIT_DETAILS_FAILURE:
-      return Object.assign({}, action,
+      return Object.assign({}, state,
         {
           isFetching: false
         }
