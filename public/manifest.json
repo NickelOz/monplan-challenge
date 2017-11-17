@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MUSE",
+  "name": "Monash Unit Search Engine",
   "icons": [
     {
       "src": "favicon.ico",

@@ -10,6 +10,7 @@ import reducers from './reducers'
 import './index.css'
 import App from './app/App.js'
 import registerServiceWorker from './registerServiceWorker'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 const logger = createLogger({
   collapsed: true
@@ -24,9 +25,11 @@ let store = createStore(
 )
 
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 )
 registerServiceWorker()

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import UnitButton from './button'
+import LoadingAnimation from '../misc/loading'
 
 class UnitInformation extends Component {
   constructor () {
@@ -11,7 +12,7 @@ class UnitInformation extends Component {
     // determine how the inner workings of the unitInformation should be displayed
     let body = null
     if (this.props.isFetching) {
-      body = <div>loading...</div>
+      body = <LoadingAnimation />
     } else if (this.props.didInvalidate) {
       body = <div>failed! :(</div>
     } else {
