@@ -35,7 +35,7 @@ export const receiveSearchResults = (query, items) => ({
   items
 })
 
-export const updateSearch = query => {
+export const performSearch = query => {
   return (dispatch, getState) => {
     dispatch(updateSearchQuery(query))
     dispatch(requestSearchResults())

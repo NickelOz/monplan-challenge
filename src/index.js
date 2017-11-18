@@ -1,16 +1,17 @@
 import React from 'react'
 import { render } from 'react-dom'
+import App from './app/App.js'
+
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
-
 import reducers from './reducers'
 
-import './index.css'
-import App from './app/App.js'
 import registerServiceWorker from './registerServiceWorker'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
+import './index.css'
 
 const logger = createLogger({
   collapsed: true

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
-import UnitButton from './button'
 import LoadingAnimation from '../misc/loading'
+import Paper from 'material-ui/Paper'
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import Chip from 'material-ui/Chip'
+import Divider from 'material-ui/Divider'
 
 class UnitInformation extends Component {
   constructor () {
@@ -20,8 +24,7 @@ class UnitInformation extends Component {
       if (this.props.unitDetails) {
         body = (
           <div>
-            <div className='App-unitHeader'>
-              <h1>{this.props.unitCode}</h1>
+            <div className='App-unitTitle'>
               <h2>{this.props.unitDetails.unitName}</h2>
               <h3>{this.props.unitDetails.faculty}</h3>
               <h3>
@@ -31,14 +34,17 @@ class UnitInformation extends Component {
                 {' Campus'}
               </h3>
             </div>
+            <Divider />
             <div className='App-unitDesc'>
               <p>{this.props.unitDetails.description}</p>
             </div>
+            <Divider />
             <div className='App-unitRatings '>
               <h4>Other students say...</h4>
               <h5>LEARN</h5><p>{this.props.unitDetails.learnScore}</p>
               <h5>LOVE</h5><p>{this.props.unitDetails.enjoyScore}</p>
             </div>
+            <Divider />
             <div className='App-unitPreqs'>
               <h5>Prerequisites</h5>
               <p>
@@ -69,7 +75,24 @@ class UnitInformation extends Component {
     if (this.props.unitCode !== '') {
       return (
         <div className='App-unit'>
-          {body}
+          <Paper
+            zDepth={3}
+          >
+            <AppBar
+              title={this.props.unitCode}
+              className='App-unitHeader'
+              showMenuIconButton={false}
+              iconElementRight={
+                <div>
+                  <IconButton />
+                  <IconButton />
+                </div>
+              }
+            />
+            <div className='App-unitBody'>
+              {body}
+            </div>
+          </Paper>
         </div>
       )
     } else {
@@ -86,11 +109,15 @@ class UnitInformation extends Component {
     let match = re.exec(paragraph)
     while (match) {
       out.push(paragraph.slice(start, match.index))
+      const unitCode = paragraph.slice(match.index, match.index + 7)
       out.push(
-        <UnitButton
-          updateCurrentUnit={this.props.updateCurrentUnit}
-          unitCode={paragraph.slice(match.index, match.index + 7)}
-        />
+        <Chip
+          onClick={() => this.props.updateCurrentUnit(unitCode)}
+          style={chipStyle}
+        >
+          {unitCode}
+        </Chip>
+
       )
       start = match.index + 7
       match = re.exec(paragraph)
@@ -98,6 +125,11 @@ class UnitInformation extends Component {
     out.push(paragraph.slice(start))
     return out
   }
+}
+
+const chipStyle = {
+  display: 'inline',
+  padding: '2px 0'
 }
 
 export default UnitInformation
