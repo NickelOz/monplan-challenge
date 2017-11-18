@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import 'whatwg-fetch'
-import UnitInformation from '../components/unit/'
+import Unit from '../components/unit/'
 import { fetchUnitDetailsIfNeeded, updateCurrentUnit } from '../actions'
 
-class UnitInformationContainer extends Component {
+class UnitContainer extends Component {
   componentWillReceiveProps (nextProps) {
     if (this.props.unitCode !== nextProps.unitCode) {
       this.props.fetchUnitDetailsIfNeeded(nextProps.unitCode)
@@ -21,13 +21,15 @@ class UnitInformationContainer extends Component {
 
   render () {
     return (
-      <UnitInformation
-        unitCode={this.props.unitCode}
-        isFetching={this.props.isFetching}
-        didInvalidate={this.props.didInvalidate}
-        unitDetails={this.props.unitDetails}
-        updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
-      />
+      <div className='App-unit'>
+        <Unit
+          unitCode={this.props.unitCode}
+          isFetching={this.props.isFetching}
+          didInvalidate={this.props.didInvalidate}
+          unitDetails={this.props.unitDetails}
+          updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
+        />
+      </div>
     )
   }
 }
@@ -60,6 +62,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const c = connect(mapStateToProps, mapDispatchToProps)(UnitInformationContainer)
+const c = connect(mapStateToProps, mapDispatchToProps)(UnitContainer)
 
 export default c

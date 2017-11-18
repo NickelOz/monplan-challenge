@@ -7,6 +7,8 @@
 
 .App-logo {
   height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 @keyframes App-logo-spin {
@@ -29,8 +31,13 @@
 .App-search {
   text-align: center;
   width: 40vw;
-  min-width: 300px;
-  max-width: 500px;
+  min-width: 250px;
+  max-width: 700px;
+}
+
+.App-results {
+  max-height: 350px;
+  overflow: auto;
 }
 
 .App-unit {
@@ -42,7 +49,25 @@
 
 .App-unitBody {
   box-sizing: border-box;
-  padding: 15px;
+  padding: 20px;
+}
+
+.App-unitBody > div {
+  margin: 20px 0;
+}
+
+.App-unitBody > div:first-of-type {
+  margin-top: 0;
+}
+
+.App-unitTitle > h1 {
+  font-size: 24px;
+  margin: 0 0 8px;
+}
+
+.App-unitTitle > h2 {
+  font-size: 20px;
+  margin: 0 0 6px;
 }
 
 /* .App-title {

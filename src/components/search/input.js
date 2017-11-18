@@ -7,6 +7,8 @@ class SearchBar extends Component {
       <TextField
         hintText='Type a unit or keyword here!'
         onChange={(object, newValue) => this.props.performSearch(newValue)}
+        disabled={this.props.isFetching || this.props.didInvalidate}
+        style={style}
       />
       // <input
       //   className='App-input'
@@ -16,6 +18,11 @@ class SearchBar extends Component {
       // />
     )
   }
+}
+
+const style = {
+  width: '90%',
+  fontSize: '24px'
 }
 
 export default SearchBar

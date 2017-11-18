@@ -5,11 +5,19 @@ import SearchResults from '../components/search/results'
 import { performSearch, updateCurrentUnit } from '../actions/'
 
 class SearchBarContainer extends Component {
+  shouldComponentUpdate (nextProps, nextState) {
+    return (
+      this.props.isFetching !== nextProps.isFetching ||
+      this.props.didInvalidate !== nextProps.didInvalidate ||
+      this.props.results !== nextProps.results
+    )
+  }
   render () {
     return (
       <div className='App-search'>
         <SearchInput
-          value={this.props.value}
+          isFetching={this.props.isFetching}
+          didInvalidate={this.props.didInvalidate}
           performSearch={newQuery => this.props.performSearch(newQuery)}
         />
         <SearchResults
@@ -23,7 +31,8 @@ class SearchBarContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    value: state.search.query,
+    isFetching: state.allUnits.isFetching,
+    didInvalidate: state.allUnits.didInvalidate,
     results: state.search.results
   }
 }

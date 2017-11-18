@@ -6,10 +6,11 @@
   [ ] Collapse search results when a unit is chosen
 
 #### Unit Information Display
-  [ ] Improve error handling to exit gracefully when monPlan API is inaccessible
+  [x] Improve error handling to exit gracefully when monPlan API is inaccessible
   [ ] Handle different display states for unitInformation (mount -> load API call -> success/failure)
   [x] Generate buttons linking relevant units for pre-reqs/prohibitions
   [ ] Ensure these buttons do not link to expired units (disable/red filter)
+  [ ] Handle missing information (no pre-reqs, no location)
 
 #### Code Flow
   [x] Handle API calls through redux-thunk, passing requests and responses as actions
@@ -17,9 +18,14 @@
   [ ] Implement lifecycle methods to handle state changes and transitions
   [ ] Configure basic testing for components and redux elements
 
+#### UI
+  [x] Migrate to Material UI
+  [ ] Develop a theme to pass down the the MaterialTheme Provider
+
 ## GENERAL NOTES
 
- - Used redux-logger and redux-thunk to handle API requests and trace errors
+  - Used redux-logger and redux-thunk to handle API requests and trace errors
+  - Material UI is great for handling layout
 
 ## THINGS I LEARNED
 
@@ -31,8 +37,11 @@ Be careful of where you make calls. For example, I originally made API calls whe
 
 When splitting up reducers, ensure you match the state with this. This is performed automatically on top-level reducers using CombineReducers, but in my case, I was pass an entire copy of the cachedUnits state down individually cached units instead of their respective state.
 
+Material UI, a project which implements the guidelines set out by [Google's Material Design](https://material.io/), is really useful for handling styling by handling presentational components.
+
 I would recommend the following examples and resources. This was also my primary reference for design patterns.
- - [Redux Async Example](https://github.com/reactjs/redux/blob/master/examples/async)
- - [Redux 'Real-World' Example](https://github.com/reactjs/redux/blob/master/examples/real-world)
- - [Redux - Async Actions](http://redux.js.org/docs/advanced/AsyncActions.html)
- - [Redux - Middlewares](http://redux.js.org/docs/advanced/Middleware.html)
+  - [Redux Async Example](https://github.com/reactjs/redux/blob/master/examples/async)
+  - [Redux 'Real-World' Example](https://github.com/reactjs/redux/blob/master/examples/real-world)
+  - [Redux - Async Actions](http://redux.js.org/docs/advanced/AsyncActions.html)
+  - [Redux - Middlewares](http://redux.js.org/docs/advanced/Middleware.html)
+  - [Material UI](http://www.material-ui.com/#/)

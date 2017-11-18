@@ -16,13 +16,14 @@ class Header extends Component {
 }
 
 const style = {
-  height: '80px'
+  height: '64px'
 }
 
 const titleStyle = {
   boxSizing: 'border-box',
+  padding: '16px 0',
   height: '100%',
-  padding: '15px 0'
+  lineHeight: '32px'
 }
 
 export default Header

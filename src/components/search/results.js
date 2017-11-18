@@ -8,7 +8,7 @@ class SearchResultList extends Component {
         <List>
           {
             this.props.results.map((result, index) => {
-              if (index < 5) {
+              if (index < 10) {
                 return (
                   <ListItem
                     primaryText={result.unitCode}

@@ -23,16 +23,16 @@ class UnitInformation extends Component {
       // unitDetails should always exist if the API request was successful, but this additional check is just protective
       if (this.props.unitDetails) {
         body = (
-          <div>
+          <div className='App-unitBody'>
             <div className='App-unitTitle'>
-              <h2>{this.props.unitDetails.unitName}</h2>
-              <h3>{this.props.unitDetails.faculty}</h3>
-              <h3>
+              <h1>{this.props.unitDetails.unitName}</h1>
+              <h2>{this.props.unitDetails.faculty}</h2>
+              <h2>
                 {this.props.unitDetails.locationAndTime.map((block, index) => {
                   return ((index > 0) ? ', ' : ' ') + block.location
                 })}
                 {' Campus'}
-              </h3>
+              </h2>
             </div>
             <Divider />
             <div className='App-unitDesc'>
@@ -74,26 +74,22 @@ class UnitInformation extends Component {
     // only render unit details if a unit has been selected
     if (this.props.unitCode !== '') {
       return (
-        <div className='App-unit'>
-          <Paper
-            zDepth={3}
-          >
-            <AppBar
-              title={this.props.unitCode}
-              className='App-unitHeader'
-              showMenuIconButton={false}
-              iconElementRight={
-                <div>
-                  <IconButton />
-                  <IconButton />
-                </div>
-              }
-            />
-            <div className='App-unitBody'>
-              {body}
-            </div>
-          </Paper>
-        </div>
+        <Paper
+          zDepth={3}
+        >
+          <AppBar
+            title={this.props.unitCode}
+            className='App-unitHeader'
+            showMenuIconButton={false}
+            iconElementRight={
+              <div>
+                <IconButton />
+                <IconButton />
+              </div>
+            }
+          />
+          {body}
+        </Paper>
       )
     } else {
       return null
