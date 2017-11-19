@@ -32,12 +32,16 @@ class Search extends Component {
       body = (
         <div>
           <SearchInput
+            revealSearchResults={() => this.props.revealSearchResults()}
             performSearch={newQuery => this.props.performSearch(newQuery)}
           />
-          <SearchResults
-            updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
-            results={this.props.results}
-          />
+          {(this.props.areResultsHidden || (this.props.results.length === 0)) ? null : (
+            <SearchResults
+              results={this.props.results}
+              hideSearchResults={() => this.props.hideSearchResults()}
+              updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
+            />
+          )}
         </div>
       )
     }

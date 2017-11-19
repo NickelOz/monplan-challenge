@@ -19,10 +19,20 @@ const callAPI = endpoint => {
 export const UPDATE_SEARCH_QUERY = 'UPDATE_SEARCH_QUERY'
 export const REQUEST_SEARCH_RESULTS = 'REQUEST_SEARCH_RESULTS'
 export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS'
+export const HIDE_SEARCH_RESULTS = 'HIDE_SEARCH_RESULTS'
+export const REVEAL_SEARCH_RESULTS = 'REVEAL_SEARCH_RESULTS'
 
 export const updateSearchQuery = query => ({
   type: UPDATE_SEARCH_QUERY,
   query
+})
+
+export const hideSearchResults = () => ({
+  type: HIDE_SEARCH_RESULTS
+})
+
+export const revealSearchResults = () => ({
+  type: REVEAL_SEARCH_RESULTS
 })
 
 export const requestSearchResults = () => ({
@@ -34,6 +44,15 @@ export const receiveSearchResults = (query, items) => ({
   query,
   items
 })
+
+export const revealSearchResultsIfNeeded = () => {
+  return (dispatch, getState) => {
+    const areResultsHidden = getState().search.areResultsHidden
+    if (areResultsHidden) {
+      dispatch(revealSearchResults())
+    }
+  }
+}
 
 export const performSearch = query => {
   return (dispatch, getState) => {
@@ -140,8 +159,8 @@ export const fetchUnitDetails = unitCode => {
 
 export const fetchUnitDetailsIfNeeded = unitCode => {
   return (dispatch, getState) => {
-    const currentState = getState()
-    if (!currentState.cachedUnits[unitCode]) {
+    const unitDetails = getState().cachedUnits[unitCode]
+    if (!unitDetails && (unitCode !== '')) {
       dispatch(fetchUnitDetails(unitCode))
     }
   }

@@ -1,5 +1,6 @@
 .App {
   min-height: 100vh;
+  padding-bottom: 40px;
   min-width: 300px;
   background-color: #e3f2fd;
 }

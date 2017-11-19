@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux'
 import {
-  UPDATE_SEARCH_QUERY,
+  UPDATE_SEARCH_QUERY, HIDE_SEARCH_RESULTS, REVEAL_SEARCH_RESULTS,
   REQUEST_SEARCH_RESULTS, RECEIVE_SEARCH_RESULTS,
   ALL_UNITS_REQUEST, ALL_UNITS_SUCCESS, ALL_UNITS_FAILURE,
-  UPDATE_CURRENT_UNIT,
-  UNIT_DETAILS_REQUEST, UNIT_DETAILS_SUCCESS, UNIT_DETAILS_FAILURE, CLEAR_CURRENT_UNIT
+  UPDATE_CURRENT_UNIT, CLEAR_CURRENT_UNIT,
+  UNIT_DETAILS_REQUEST, UNIT_DETAILS_SUCCESS, UNIT_DETAILS_FAILURE
  } from '../actions/'
 
 const defaultSearchState = {
   query: '',
-  results: []
+  results: [],
+  hidden: true
 }
 
 function search (state = defaultSearchState, action) {
@@ -18,6 +19,18 @@ function search (state = defaultSearchState, action) {
       return Object.assign({}, state,
         {
           query: action.query
+        }
+      )
+    case HIDE_SEARCH_RESULTS:
+      return Object.assign({}, state,
+        {
+          hidden: true
+        }
+      )
+    case REVEAL_SEARCH_RESULTS:
+      return Object.assign({}, state,
+        {
+          hidden: false
         }
       )
     case REQUEST_SEARCH_RESULTS:

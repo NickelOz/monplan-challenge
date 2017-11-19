@@ -7,14 +7,14 @@ import Chip from 'material-ui/Chip'
 import Divider from 'material-ui/Divider'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 
-class UnitInformation extends Component {
+class Unit extends Component {
   constructor () {
     super()
     this.getUnits = this.getUnits.bind(this)
   }
 
   render () {
-    // determine how the inner workings of the unitInformation should be displayed
+    // determine how the inner workings of the unit should be displayed
     let body = null
     if (this.props.isFetching) {
       body = (
@@ -79,9 +79,7 @@ class UnitInformation extends Component {
               <div>
                 {
                   // detect any units and convert them into buttons, other leave the text untouched
-                  this.getUnits(this.props.unitDetails.proh).map(phrase => {
-                    return (phrase)
-                  })
+                  this.getUnits(this.props.unitDetails.proh)
                 }
               </div>
             </div>
@@ -108,7 +106,6 @@ class UnitInformation extends Component {
                   <FontIcon
                     className='material-icons'
                     color='#ffffff'
-                    hoverColor='#00ff00'
                   >
                       refresh
                   </FontIcon>
@@ -175,4 +172,4 @@ const style = {
   }
 }
 
-export default UnitInformation
+export default Unit
