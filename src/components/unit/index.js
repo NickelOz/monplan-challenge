@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Paper from 'material-ui/Paper'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
 import Chip from 'material-ui/Chip'
 import Divider from 'material-ui/Divider'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
@@ -101,8 +102,28 @@ class UnitInformation extends Component {
             showMenuIconButton={false}
             iconElementRight={
               <div>
-                <IconButton />
-                <IconButton />
+                <IconButton
+                  onClick={() => this.props.reloadCurrentUnit()}
+                >
+                  <FontIcon
+                    className='material-icons'
+                    color='#ffffff'
+                    hoverColor='#00ff00'
+                  >
+                      refresh
+                  </FontIcon>
+                </IconButton>
+                <IconButton
+                  onClick={() => this.props.clearCurrentUnit()}
+                >
+                  <FontIcon
+                    className='material-icons'
+                    color='#ffffff'
+                    hoverColor='#ff0000'
+                  >
+                      clear
+                  </FontIcon>
+                </IconButton>
               </div>
             }
           />

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import 'whatwg-fetch'
 import Unit from '../components/unit/'
-import { fetchUnitDetailsIfNeeded, updateCurrentUnit } from '../actions'
+import { fetchUnitDetailsIfNeeded, updateCurrentUnit, reloadCurrentUnit, clearCurrentUnit } from '../actions'
 
 class UnitContainer extends Component {
   componentWillReceiveProps (nextProps) {
@@ -27,6 +27,8 @@ class UnitContainer extends Component {
         didInvalidate={this.props.didInvalidate}
         unitDetails={this.props.unitDetails}
         updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
+        reloadCurrentUnit={() => this.props.reloadCurrentUnit()}
+        clearCurrentUnit={() => this.props.clearCurrentUnit()}
       />
     )
   }
@@ -56,6 +58,12 @@ const mapDispatchToProps = dispatch => {
     },
     updateCurrentUnit: unitCode => {
       dispatch(updateCurrentUnit(unitCode))
+    },
+    reloadCurrentUnit: unitCode => {
+      dispatch(reloadCurrentUnit(unitCode))
+    },
+    clearCurrentUnit: () => {
+      dispatch(clearCurrentUnit())
     }
   }
 }

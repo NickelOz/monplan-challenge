@@ -98,6 +98,7 @@ export const fetchAllUnits = () => {
 
 // HANDLES REQUESTS FOR INDIVIDUAL UNITS
 export const UPDATE_CURRENT_UNIT = 'UPDATE_CURRENT_UNIT'
+export const CLEAR_CURRENT_UNIT = 'CLEAR_CURRENT_UNIT'
 export const UNIT_DETAILS_REQUEST = 'UNIT_DETAILS_REQUEST'
 export const UNIT_DETAILS_SUCCESS = 'UNIT_DETAILS_SUCCESS'
 export const UNIT_DETAILS_FAILURE = 'UNIT_DETAILS_FAILURE'
@@ -105,6 +106,10 @@ export const UNIT_DETAILS_FAILURE = 'UNIT_DETAILS_FAILURE'
 export const updateCurrentUnit = unitCode => ({
   type: UPDATE_CURRENT_UNIT,
   unitCode
+})
+
+export const clearCurrentUnit = () => ({
+  type: CLEAR_CURRENT_UNIT
 })
 
 export const fetchUnitDetails = unitCode => {
@@ -139,5 +144,12 @@ export const fetchUnitDetailsIfNeeded = unitCode => {
     if (!currentState.cachedUnits[unitCode]) {
       dispatch(fetchUnitDetails(unitCode))
     }
+  }
+}
+
+export const reloadCurrentUnit = () => {
+  return (dispatch, getState) => {
+    const currentUnit = getState().currentUnit
+    dispatch(fetchUnitDetails(currentUnit))
   }
 }

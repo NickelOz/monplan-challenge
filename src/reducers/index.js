@@ -4,7 +4,7 @@ import {
   REQUEST_SEARCH_RESULTS, RECEIVE_SEARCH_RESULTS,
   ALL_UNITS_REQUEST, ALL_UNITS_SUCCESS, ALL_UNITS_FAILURE,
   UPDATE_CURRENT_UNIT,
-  UNIT_DETAILS_REQUEST, UNIT_DETAILS_SUCCESS, UNIT_DETAILS_FAILURE
+  UNIT_DETAILS_REQUEST, UNIT_DETAILS_SUCCESS, UNIT_DETAILS_FAILURE, CLEAR_CURRENT_UNIT
  } from '../actions/'
 
 const defaultSearchState = {
@@ -113,6 +113,8 @@ function currentUnit (state = '', action) {
   switch (action.type) {
     case UPDATE_CURRENT_UNIT:
       return action.unitCode
+    case CLEAR_CURRENT_UNIT:
+      return ''
     default:
       return state
   }

@@ -3,8 +3,9 @@ import { List, ListItem } from 'material-ui/List'
 
 class SearchResultList extends Component {
   render () {
-    return (
-      <div className='App-results'>
+    let body
+    if (this.props.results.length > 0) {
+      body = (
         <List>
           {
             this.props.results.map((result, index) => {
@@ -23,23 +24,13 @@ class SearchResultList extends Component {
             })
           }
         </List>
-        {
-          // this.props.results.map((result, index) => {
-          //   if (index < 5) {
-          //     return (
-          //       <button
-          //         className='App-button'
-          //         onClick={() => this.props.onResultButtonClick(result.unitCode)}
-          //       >
-          //         <h1>{result.unitCode}</h1>
-          //         <h2>{result.unitName}</h2>
-          //       </button>
-          //     )
-          //   } else {
-          //     return null
-          //   }
-          // })
-        }
+      )
+    } else {
+      body = null
+    }
+    return (
+      <div className='App-results'>
+        {body}
       </div>
     )
   }

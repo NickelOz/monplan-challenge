@@ -10,6 +10,7 @@ import reducers from './reducers'
 
 import registerServiceWorker from './registerServiceWorker'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import muiTheme from './theme.js'
 
 import './index.css'
 
@@ -26,7 +27,7 @@ let store = createStore(
 )
 
 render(
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <App />
     </Provider>

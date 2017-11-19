@@ -10,18 +10,12 @@ class SearchBar extends Component {
         disabled={this.props.isFetching || this.props.didInvalidate}
         style={style}
       />
-      // <input
-      //   className='App-input'
-      //   type='text'
-      //   value={this.props.value}
-      //   onChange={e => { this.props.onFormUpdate(e.target.value) }}
-      // />
     )
   }
 }
 
 const style = {
-  width: '90%',
+  width: '80%',
   fontSize: '24px'
 }
 

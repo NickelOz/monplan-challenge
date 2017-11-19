@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Paper from 'material-ui/Paper'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 import SearchInput from './input'
 import SearchResults from './results'
@@ -8,7 +9,7 @@ class Search extends Component {
     let body
     if (this.props.isFetching) {
       body = (
-        <div className='App-search'>
+        <div>
           <div style={style.container}>
             <RefreshIndicator
               status='loading'
@@ -18,18 +19,18 @@ class Search extends Component {
               style={style.indicator}
             />
           </div>
-          <h3>MUSE is loading, we'll be ready in a moment!</h3>
+          <h1>MUSE is loading, we'll be ready in a moment!</h1>
         </div>
       )
     } else if (this.props.didInvalidate) {
       body = (
-        <div className='App-search'>
+        <div>
           <h1>Something went wrong while loading MUSE, please check back later!</h1>
         </div>
       )
     } else {
       body = (
-        <div className='App-search'>
+        <div>
           <SearchInput
             performSearch={newQuery => this.props.performSearch(newQuery)}
           />
@@ -41,7 +42,9 @@ class Search extends Component {
       )
     }
     return (
-      body
+      <Paper className='App-search'>
+        {body}
+      </Paper>
     )
   }
 }
