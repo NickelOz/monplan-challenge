@@ -21,15 +21,13 @@ class UnitContainer extends Component {
 
   render () {
     return (
-      <div className='App-unit'>
-        <Unit
-          unitCode={this.props.unitCode}
-          isFetching={this.props.isFetching}
-          didInvalidate={this.props.didInvalidate}
-          unitDetails={this.props.unitDetails}
-          updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
-        />
-      </div>
+      <Unit
+        unitCode={this.props.unitCode}
+        isFetching={this.props.isFetching}
+        didInvalidate={this.props.didInvalidate}
+        unitDetails={this.props.unitDetails}
+        updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
+      />
     )
   }
 }

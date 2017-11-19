@@ -93,6 +93,7 @@ class UnitInformation extends Component {
       return (
         <Paper
           zDepth={3}
+          className='App-unit'
         >
           <AppBar
             title={this.props.unitCode}
