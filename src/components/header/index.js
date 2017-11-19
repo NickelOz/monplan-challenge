@@ -8,22 +8,23 @@ class Header extends Component {
       <AppBar
         title={<img src={logo} className='App-logo' alt='logo' />}
         showMenuIconButton={false}
-        style={style}
-        titleStyle={titleStyle}
+        style={style.bar}
+        titleStyle={style.title}
       />
     )
   }
 }
 
 const style = {
-  height: '64px'
-}
-
-const titleStyle = {
-  boxSizing: 'border-box',
-  padding: '16px 0',
-  height: '100%',
-  lineHeight: '32px'
+  bar: {
+    height: '64px'
+  },
+  title: {
+    boxSizing: 'border-box',
+    padding: '16px 0',
+    height: '100%',
+    lineHeight: '32px'
+  }
 }
 
 export default Header

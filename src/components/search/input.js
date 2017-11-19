@@ -5,7 +5,7 @@ class SearchBar extends Component {
   render () {
     return (
       <TextField
-        hintText='Type a unit or keyword here!'
+        hintText='Tell me about...'
         onChange={(object, newValue) => this.props.performSearch(newValue)}
         disabled={this.props.isFetching || this.props.didInvalidate}
         style={style}

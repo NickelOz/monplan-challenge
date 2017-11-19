@@ -17,7 +17,7 @@
 }
 
 .App-main > div {
-  margin: auto;
+  margin: 16px auto;
 }
 
 .App-header {
@@ -26,6 +26,17 @@
 
 .App-title {
   text-align: center;
+  padding: 16px
+}
+
+.App-title > h1 {
+  font-size: 5vh;
+  margin: 0 0 8px;
+}
+
+.App-title > h2 {
+  font-size: 3vh;
+  margin: 0 0;
 }
 
 .App-search {
@@ -50,10 +61,12 @@
 .App-unitBody {
   box-sizing: border-box;
   padding: 20px;
+  text-align: center;
 }
 
 .App-unitBody > div {
   margin: 20px 0;
+  text-align: left;
 }
 
 .App-unitBody > div:first-of-type {

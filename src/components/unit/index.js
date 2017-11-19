@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import LoadingAnimation from '../misc/loading'
 import Paper from 'material-ui/Paper'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import Chip from 'material-ui/Chip'
 import Divider from 'material-ui/Divider'
+import RefreshIndicator from 'material-ui/RefreshIndicator'
 
 class UnitInformation extends Component {
   constructor () {
@@ -16,9 +16,26 @@ class UnitInformation extends Component {
     // determine how the inner workings of the unitInformation should be displayed
     let body = null
     if (this.props.isFetching) {
-      body = <LoadingAnimation />
+      body = (
+        <div className='App-unitBody'>
+          <div style={style.indicatorContainer}>
+            <RefreshIndicator
+              status='loading'
+              top={0}
+              left={0}
+              size={100}
+              style={style.indicator}
+            />
+          </div>
+          <h3>{`Loading ${this.props.unitCode}`}</h3>
+        </div>
+      )
     } else if (this.props.didInvalidate) {
-      body = <div>failed! :(</div>
+      body = (
+        <div className='App-unitBody'>
+          <h1>{`Could not load unit details for ${this.props.unitCode}`}</h1>
+        </div>
+      )
     } else {
       // unitDetails should always exist if the API request was successful, but this additional check is just protective
       if (this.props.unitDetails) {
@@ -58,14 +75,14 @@ class UnitInformation extends Component {
             </div>
             <div className='App-unitProh'>
               <h5>Prohibitions</h5>
-              <p>
+              <div>
                 {
                   // detect any units and convert them into buttons, other leave the text untouched
                   this.getUnits(this.props.unitDetails.proh).map(phrase => {
                     return (phrase)
                   })
                 }
-              </p>
+              </div>
             </div>
           </div>
         )
@@ -109,7 +126,7 @@ class UnitInformation extends Component {
       out.push(
         <Chip
           onClick={() => this.props.updateCurrentUnit(unitCode)}
-          style={chipStyle}
+          style={style.chip}
         >
           {unitCode}
         </Chip>
@@ -123,9 +140,17 @@ class UnitInformation extends Component {
   }
 }
 
-const chipStyle = {
-  display: 'inline',
-  padding: '2px 0'
+const style = {
+  indicatorContainer: {
+    display: 'inline-block'
+  },
+  indicator: {
+    position: 'relative'
+  },
+  chip: {
+    display: 'inline',
+    padding: '2px 0'
+  }
 }
 
 export default UnitInformation

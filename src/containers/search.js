@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import SearchInput from '../components/search/input'
-import SearchResults from '../components/search/results'
 import { performSearch, updateCurrentUnit } from '../actions/'
+import Search from '../components/search'
 
-class SearchBarContainer extends Component {
+class SearchContainer extends Component {
   shouldComponentUpdate (nextProps, nextState) {
     return (
       this.props.isFetching !== nextProps.isFetching ||
@@ -14,17 +13,13 @@ class SearchBarContainer extends Component {
   }
   render () {
     return (
-      <div className='App-search'>
-        <SearchInput
-          isFetching={this.props.isFetching}
-          didInvalidate={this.props.didInvalidate}
-          performSearch={newQuery => this.props.performSearch(newQuery)}
-        />
-        <SearchResults
-          updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
-          results={this.props.results}
-        />
-      </div>
+      <Search
+        isFetching={this.props.isFetching}
+        didInvalidate={this.props.didInvalidate}
+        results={this.props.results}
+        performSearch={newQuery => this.props.performSearch(newQuery)}
+        updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
+      />
     )
   }
 }
@@ -48,6 +43,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const c = connect(mapStateToProps, mapDispatchToProps)(SearchBarContainer)
+const c = connect(mapStateToProps, mapDispatchToProps)(SearchContainer)
 
 export default c
