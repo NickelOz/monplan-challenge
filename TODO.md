@@ -3,11 +3,11 @@
 #### Searching
   [x] Implement search method through allUnits by unitCode / unitName
   [ ] Extend search capabilities with filtering *(faculty, year, no pre-req?)*
-  [ ] Collapse search results when a unit is chosen
+  [x] Collapse search results when a unit is chosen
 
 #### Unit Information Display
   [x] Improve error handling to exit gracefully when monPlan API is inaccessible
-  [ ] Handle different display states for unitInformation (mount -> load API call -> success/failure)
+  [x] Handle different display states for unitInformation (mount -> load API call -> success/failure)
   [x] Generate buttons linking relevant units for pre-reqs/prohibitions
   [ ] Ensure these buttons do not link to expired units (disable/red filter)
   [ ] Handle missing information (no pre-reqs, no location)
@@ -17,6 +17,7 @@
   [x] Shift API calls for individual unit details to occur when the props for the UnitInformation component change *(fetchUnitDetailsIfNeeded)*
   [ ] Implement lifecycle methods to handle state changes and transitions
   [ ] Configure basic testing for components and redux elements
+  [x] Divide sections for a unit into individual components
 
 #### UI
   [x] Migrate to Material UI

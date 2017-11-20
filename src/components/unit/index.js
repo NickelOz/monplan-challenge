@@ -1,31 +1,28 @@
 import React, { Component } from 'react'
 import Paper from 'material-ui/Paper'
-import AppBar from 'material-ui/AppBar'
-import IconButton from 'material-ui/IconButton'
-import FontIcon from 'material-ui/FontIcon'
-import Chip from 'material-ui/Chip'
 import Divider from 'material-ui/Divider'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 
-class Unit extends Component {
-  constructor () {
-    super()
-    this.getUnits = this.getUnits.bind(this)
-  }
+import UnitHeader from './header'
+import UnitTitle from './title'
+import UnitDescription from './description'
+import UnitRatings from './ratings'
+import UnitRequirements from './requirements'
 
+class Unit extends Component {
   render () {
     // determine how the inner workings of the unit should be displayed
     let body = null
     if (this.props.isFetching) {
       body = (
         <div className='App-unitBody'>
-          <div style={style.indicatorContainer}>
+          <div style={style.loadingContainer}>
             <RefreshIndicator
               status='loading'
               top={0}
               left={0}
               size={100}
-              style={style.indicator}
+              style={style.loading}
             />
           </div>
           <h3>{`Loading ${this.props.unitCode}`}</h3>
@@ -42,47 +39,26 @@ class Unit extends Component {
       if (this.props.unitDetails) {
         body = (
           <div className='App-unitBody'>
-            <div className='App-unitTitle'>
-              <h1>{this.props.unitDetails.unitName}</h1>
-              <h2>{this.props.unitDetails.faculty}</h2>
-              <h2>
-                {this.props.unitDetails.locationAndTime.map((block, index) => {
-                  return ((index > 0) ? ', ' : ' ') + block.location
-                })}
-                {' Campus'}
-              </h2>
-            </div>
+            <UnitTitle
+              unitName={this.props.unitDetails.unitName}
+              faculty={this.props.unitDetails.faculty}
+              locationAndTime={this.props.unitDetails.locationAndTime}
+            />
             <Divider />
-            <div className='App-unitDesc'>
-              <p>{this.props.unitDetails.description}</p>
-            </div>
+            <UnitDescription
+              description={this.props.unitDetails.description}
+            />
             <Divider />
-            <div className='App-unitRatings '>
-              <h4>Other students say...</h4>
-              <h5>LEARN</h5><p>{this.props.unitDetails.learnScore}</p>
-              <h5>LOVE</h5><p>{this.props.unitDetails.enjoyScore}</p>
-            </div>
+            <UnitRatings
+              learnScore={this.props.unitDetails.learnScore}
+              enjoyScore={this.props.unitDetails.enjoyScore}
+            />
             <Divider />
-            <div className='App-unitPreqs'>
-              <h5>Prerequisites</h5>
-              <p>
-                {
-                  // detect any units and convert them into buttons, other leave the text untouched
-                  this.getUnits(this.props.unitDetails.preqs).map(phrase => {
-                    return (phrase)
-                  })
-                }
-              </p>
-            </div>
-            <div className='App-unitProh'>
-              <h5>Prohibitions</h5>
-              <div>
-                {
-                  // detect any units and convert them into buttons, other leave the text untouched
-                  this.getUnits(this.props.unitDetails.proh)
-                }
-              </div>
-            </div>
+            <UnitRequirements
+              proh={this.props.unitDetails.proh}
+              preqs={this.props.unitDetails.preqs}
+              updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
+            />
           </div>
         )
       }
@@ -94,35 +70,10 @@ class Unit extends Component {
           zDepth={3}
           className='App-unit'
         >
-          <AppBar
-            title={this.props.unitCode}
-            className='App-unitHeader'
-            showMenuIconButton={false}
-            iconElementRight={
-              <div>
-                <IconButton
-                  onClick={() => this.props.reloadCurrentUnit()}
-                >
-                  <FontIcon
-                    className='material-icons'
-                    color='#ffffff'
-                  >
-                      refresh
-                  </FontIcon>
-                </IconButton>
-                <IconButton
-                  onClick={() => this.props.clearCurrentUnit()}
-                >
-                  <FontIcon
-                    className='material-icons'
-                    color='#ffffff'
-                    hoverColor='#ff0000'
-                  >
-                      clear
-                  </FontIcon>
-                </IconButton>
-              </div>
-            }
+          <UnitHeader
+            unitCode={this.props.unitCode}
+            reloadCurrentUnit={() => this.props.reloadCurrentUnit()}
+            clearCurrentUnit={() => this.props.clearCurrentUnit()}
           />
           {body}
         </Paper>
@@ -131,44 +82,14 @@ class Unit extends Component {
       return null
     }
   }
-
-  getUnits (paragraph) {
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-    // units should be of the form 'AAA0001'
-    const re = /[A-Z]{3}[0-9]{4}/g
-    let out = []
-    let start = 0
-    let match = re.exec(paragraph)
-    while (match) {
-      out.push(paragraph.slice(start, match.index))
-      const unitCode = paragraph.slice(match.index, match.index + 7)
-      out.push(
-        <Chip
-          onClick={() => this.props.updateCurrentUnit(unitCode)}
-          style={style.chip}
-        >
-          {unitCode}
-        </Chip>
-
-      )
-      start = match.index + 7
-      match = re.exec(paragraph)
-    }
-    out.push(paragraph.slice(start))
-    return out
-  }
 }
 
 const style = {
-  indicatorContainer: {
+  loadingContainer: {
     display: 'inline-block'
   },
-  indicator: {
+  loading: {
     position: 'relative'
-  },
-  chip: {
-    display: 'inline',
-    padding: '2px 0'
   }
 }
 
