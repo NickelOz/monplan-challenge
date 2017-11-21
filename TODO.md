@@ -1,47 +1,46 @@
 ## TODO
 
 #### Searching
-  [x] Implement search method through allUnits by unitCode / unitName
-  [ ] Extend search capabilities with filtering *(faculty, year, no pre-req?)*
-  [x] Collapse search results when a unit is chosen
+  - [x] Implement search method through allUnits by unitCode / unitName
+  - [ ] Extend search capabilities with filtering *(faculty, year, no pre-req?)*
+  - [x] Collapse search results when a unit is chosen
 
 #### Unit Information Display
-  [x] Improve error handling to exit gracefully when monPlan API is inaccessible
-  [x] Handle different display states for unitInformation (mount -> load API call -> success/failure)
-  [x] Generate buttons linking relevant units for pre-reqs/prohibitions
-  [ ] Ensure these buttons do not link to expired units (disable/red filter)
-  [ ] Handle missing information (no pre-reqs, no location)
-  [ ] Allow for 'back/previous' unit (stack of previous units that updates with each new unit load?)
+  - [x] Improve error handling to exit gracefully when monPlan API is inaccessible
+  - [x] Handle different display states for unitInformation (mount -> load API call -> success/failure)
+  - [x] Generate buttons linking relevant units for pre-reqs/prohibitions
+  - [ ] Ensure these buttons do not link to expired units (disable/red filter)
+  - [ ] Handle missing information (no pre-reqs, no location)
+  - [x] Allow for 'back/previous' unit (stack of previous units that updates with each new unit load?)
 
 #### Code Flow
-  [x] Handle API calls through redux-thunk, passing requests and responses as actions
-  [x] Shift API calls for individual unit details to occur when the props for the UnitInformation component change *(fetchUnitDetailsIfNeeded)*
-  [ ] Implement lifecycle methods to handle state changes and transitions
-  [ ] Configure basic testing for components and redux elements
-  [x] Divide sections for a unit into individual components
+  - [x] Handle API calls through redux-thunk, passing requests and responses as actions
+  - [x] Shift API calls for individual unit details to occur when the props for the UnitInformation component change *(fetchUnitDetailsIfNeeded)*
+  - [x] Implement lifecycle methods to handle state changes and transitions
+  - [x] Configure basic testing for components and redux elements
+  - [x] Divide sections for a unit into individual components
 
 #### UI
-  [x] Migrate to Material UI
-  [ ] Develop a theme to pass down the the MaterialTheme Provider
+  - [x] Migrate to Material UI
+  - [ ] Develop a complete theme to pass down the the MaterialTheme Provider
 
 ## GENERAL NOTES
-  - To check the correct/necessary props are passed to components, use the accompoanying library prop-types (Another option is jest, but this was not used in this case)
+  - Used prop-types to check props passed down to presentation components (jest wasn't used, but it is certainly a possibility)
   - Used redux-logger and redux-thunk to handle API requests and trace errors in action/reducers
   - Material UI is great for handling layout
+  - [Git Flight Rules](https://github.com/k88hudson/git-flight-rules#i-need-to-add-staged-changes-to-the-previous-commit) were also useful at one point, when I didn't stage one particular file for a commit.
 
 ## THINGS I LEARNED
 
-Do NOT handle external requests (API queries) through components! Pass it up through a middleware. [Thunk](https://github.com/gaearon/redux-thunk) is useful for this, as it is designed to handle async process and dispatch corresponding actions
+Do NOT handle external requests (API queries) through components! Pass it up through a middleware. [Thunk](https://github.com/gaearon/redux-thunk) is useful for this, as it is designed to handle async process and dispatch corresponding actions accordingly.
 
 On the topic of middleware, use it! It's great for handling all the aspects of API requests (calling, handling responses, fail cases), though it is quite a lot to get around at first.
 
-Be careful of where you make calls. For example, I originally made API calls whenever a user selected a result, which could lead to many repeated requests for the same unit. This could be improved by making a single request when a result mounts.
+Be careful of where you make calls. For example, I originally made API calls whenever a user selected a result, which could lead to many repeated requests for the same unit. This could be improved by making a single request when a unit mounts, that only requests the information if it is needed.
 
-When splitting up reducers, ensure you match the state with this. This is performed automatically on top-level reducers using CombineReducers, but in my case, I was pass an entire copy of the cachedUnits state down individually cached units instead of their respective state.
+Material UI, a project which implements the guidelines set out by [Google's Material Design Principles](https://material.io/), is really useful for handling styling by handling presentational components.
 
-Material UI, a project which implements the guidelines set out by [Google's Material Design](https://material.io/), is really useful for handling styling by handling presentational components.
-
-[Git Flight Rules](https://github.com/k88hudson/git-flight-rules#i-need-to-add-staged-changes-to-the-previous-commit) were also useful at one point, when I didn't stage one particular file for a commit.
+## OTHER LINKS
 
 I would recommend the following examples and resources. This was also my primary reference for design patterns.
   - [Redux Async Example](https://github.com/reactjs/redux/blob/master/examples/async)

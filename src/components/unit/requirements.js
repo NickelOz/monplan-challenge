@@ -17,9 +17,11 @@ class UnitRequirements extends Component {
           <div>
             {
               // detect any units and convert them into buttons, other leave the text untouched
-              this.extractUnits(this.props.preqs).map(phrase => {
-                return (phrase)
-              })
+              (this.props.preqs === '') ? 'None' : (
+                this.extractUnits(this.props.preqs).map(phrase => {
+                  return (phrase)
+                })
+              )
             }
           </div>
         </div>
@@ -28,9 +30,11 @@ class UnitRequirements extends Component {
           <div>
             {
               // detect any units and convert them into buttons, other leave the text untouched
-              this.extractUnits(this.props.proh).map(phrase => {
-                return (phrase)
-              })
+              (this.props.proh === '') ? 'None' : (
+                this.extractUnits(this.props.proh).map(phrase => {
+                  return (phrase)
+                })
+              )
             }
           </div>
         </div>
