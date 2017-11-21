@@ -3,14 +3,14 @@ import {
   UPDATE_SEARCH_QUERY, HIDE_SEARCH_RESULTS, REVEAL_SEARCH_RESULTS,
   REQUEST_SEARCH_RESULTS, RECEIVE_SEARCH_RESULTS,
   ALL_UNITS_REQUEST, ALL_UNITS_SUCCESS, ALL_UNITS_FAILURE,
-  UPDATE_CURRENT_UNIT, CLEAR_CURRENT_UNIT,
+  UPDATE_CURRENT_UNIT, LOAD_PREVIOUS_UNIT, CLEAR_CURRENT_UNIT,
   UNIT_DETAILS_REQUEST, UNIT_DETAILS_SUCCESS, UNIT_DETAILS_FAILURE
  } from '../actions/'
 
 const defaultSearchState = {
   query: '',
   results: [],
-  hidden: true
+  areResultsHidden: true
 }
 
 function search (state = defaultSearchState, action) {
@@ -24,13 +24,13 @@ function search (state = defaultSearchState, action) {
     case HIDE_SEARCH_RESULTS:
       return Object.assign({}, state,
         {
-          hidden: true
+          areResultsHidden: true
         }
       )
     case REVEAL_SEARCH_RESULTS:
       return Object.assign({}, state,
         {
-          hidden: false
+          areResultsHidden: false
         }
       )
     case REQUEST_SEARCH_RESULTS:
@@ -51,7 +51,13 @@ function search (state = defaultSearchState, action) {
   }
 }
 
-function allUnits (state = {}, action) {
+const defaultAllUnitsState = {
+  isFetching: true,
+  didInvalidate: true,
+  items: []
+}
+
+function allUnits (state = defaultAllUnitsState, action) {
   switch (action.type) {
     case ALL_UNITS_REQUEST:
       return Object.assign({}, state,
@@ -79,7 +85,13 @@ function allUnits (state = {}, action) {
   }
 }
 
-function unitDetails (state = {}, action) {
+const defaultUnitDetailsState = {
+  isFetching: true,
+  didInvalidate: false,
+  unitDetails: {}
+}
+
+function unitDetails (state = defaultUnitDetailsState, action) {
   switch (action.type) {
     case UNIT_DETAILS_REQUEST:
       return Object.assign({}, state,
@@ -107,7 +119,9 @@ function unitDetails (state = {}, action) {
   }
 }
 
-function cachedUnits (state = {}, action) {
+const defaultCachedUnitsState = {}
+
+function cachedUnits (state = defaultCachedUnitsState, action) {
   switch (action.type) {
     case UNIT_DETAILS_REQUEST:
     case UNIT_DETAILS_SUCCESS:
@@ -122,12 +136,42 @@ function cachedUnits (state = {}, action) {
   }
 }
 
-function currentUnit (state = '', action) {
+const defaultUnitHistoryState = {
+  currentUnit: '',
+  previousUnits: [],
+  hasPreviousUnit: false
+}
+
+function unitHistory (state = defaultUnitHistoryState, action) {
+  let newHistory = state.previousUnits
   switch (action.type) {
     case UPDATE_CURRENT_UNIT:
-      return action.unitCode
+      if (state.currentUnit !== '') {
+        newHistory.push(state.currentUnit)
+      }
+      return Object.assign({}, state,
+        {
+          currentUnit: action.unitCode,
+          previousUnits: newHistory,
+          hasPreviousUnit: (newHistory.length > 0)
+        }
+      )
+    case LOAD_PREVIOUS_UNIT:
+      let previousUnit = newHistory.pop()
+      return Object.assign({}, state,
+        {
+          currentUnit: previousUnit,
+          previousUnits: newHistory,
+          hasPreviousUnit: (newHistory.length > 0)
+        }
+      )
     case CLEAR_CURRENT_UNIT:
-      return ''
+      return Object.assign({}, state,
+        {
+          currentUnit: '',
+          previousUnits: []
+        }
+      )
     default:
       return state
   }
@@ -137,7 +181,7 @@ const root = combineReducers({
   search,
   allUnits,
   cachedUnits,
-  currentUnit
+  unitHistory
 })
 
 export default root

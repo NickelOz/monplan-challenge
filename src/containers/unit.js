@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import 'whatwg-fetch'
 import Unit from '../components/unit/'
-import { fetchUnitDetailsIfNeeded, updateCurrentUnit, reloadCurrentUnit, clearCurrentUnit } from '../actions'
+import { fetchUnitDetailsIfNeeded, updateCurrentUnit, reloadCurrentUnit, loadPreviousUnit, clearCurrentUnit } from '../actions'
 
 class UnitContainer extends Component {
   componentDidMount () {
@@ -30,7 +30,9 @@ class UnitContainer extends Component {
         isFetching={this.props.isFetching}
         didInvalidate={this.props.didInvalidate}
         unitDetails={this.props.unitDetails}
+        hasPreviousUnit={this.props.hasPreviousUnit}
         updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
+        loadPreviousUnit={() => this.props.loadPreviousUnit()}
         reloadCurrentUnit={() => this.props.reloadCurrentUnit()}
         clearCurrentUnit={() => this.props.clearCurrentUnit()}
       />
@@ -47,11 +49,13 @@ const defaultUnitState = {
 const mapStateToProps = state => {
   const unitCode = state.unitHistory.currentUnit
   const { isFetching, didInvalidate, unitDetails } = state.cachedUnits[unitCode] || defaultUnitState
+  const hasPreviousUnit = state.unitHistory.hasPreviousUnit
   return {
     unitCode: unitCode,
     isFetching: isFetching,
     didInvalidate: didInvalidate,
-    unitDetails: unitDetails
+    unitDetails: unitDetails,
+    hasPreviousUnit: hasPreviousUnit
   }
 }
 
@@ -63,8 +67,11 @@ const mapDispatchToProps = dispatch => {
     updateCurrentUnit: unitCode => {
       dispatch(updateCurrentUnit(unitCode))
     },
-    reloadCurrentUnit: unitCode => {
-      dispatch(reloadCurrentUnit(unitCode))
+    loadPreviousUnit: () => {
+      dispatch(loadPreviousUnit())
+    },
+    reloadCurrentUnit: () => {
+      dispatch(reloadCurrentUnit())
     },
     clearCurrentUnit: () => {
       dispatch(clearCurrentUnit())

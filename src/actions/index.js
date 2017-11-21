@@ -117,6 +117,7 @@ export const fetchAllUnits = () => {
 
 // HANDLES REQUESTS FOR INDIVIDUAL UNITS
 export const UPDATE_CURRENT_UNIT = 'UPDATE_CURRENT_UNIT'
+export const LOAD_PREVIOUS_UNIT = 'LOAD_PREVIOUS_UNIT'
 export const CLEAR_CURRENT_UNIT = 'CLEAR_CURRENT_UNIT'
 export const UNIT_DETAILS_REQUEST = 'UNIT_DETAILS_REQUEST'
 export const UNIT_DETAILS_SUCCESS = 'UNIT_DETAILS_SUCCESS'
@@ -125,6 +126,10 @@ export const UNIT_DETAILS_FAILURE = 'UNIT_DETAILS_FAILURE'
 export const updateCurrentUnit = unitCode => ({
   type: UPDATE_CURRENT_UNIT,
   unitCode
+})
+
+export const loadPreviousUnit = () => ({
+  type: LOAD_PREVIOUS_UNIT
 })
 
 export const clearCurrentUnit = () => ({

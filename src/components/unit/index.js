@@ -66,23 +66,21 @@ class Unit extends Component {
       }
     }
     // only render unit details if a unit has been selected
-    if (this.props.unitCode !== '') {
-      return (
-        <Paper
-          zDepth={3}
-          className='App-unit'
-        >
-          <UnitHeader
-            unitCode={this.props.unitCode}
-            reloadCurrentUnit={() => this.props.reloadCurrentUnit()}
-            clearCurrentUnit={() => this.props.clearCurrentUnit()}
-          />
-          {body}
-        </Paper>
-      )
-    } else {
-      return null
-    }
+    return (
+      <Paper
+        zDepth={3}
+        className='App-unit'
+      >
+        <UnitHeader
+          unitCode={this.props.unitCode}
+          hasPreviousUnit={this.props.hasPreviousUnit}
+          loadPreviousUnit={() => this.props.loadPreviousUnit()}
+          reloadCurrentUnit={() => this.props.reloadCurrentUnit()}
+          clearCurrentUnit={() => this.props.clearCurrentUnit()}
+        />
+        {body}
+      </Paper>
+    )
   }
 }
 
@@ -101,6 +99,8 @@ Unit.propTypes  = {
   didInvalidate: PropTypes.bool.isRequired,
   // header
   unitCode: PropTypes.string.isRequired,
+  hasPreviousUnit: PropTypes.bool.isRequired,
+  loadPreviousUnit: PropTypes.func.isRequired,
   reloadCurrentUnit: PropTypes.func.isRequired,
   clearCurrentUnit: PropTypes.func.isRequired,
   // title

@@ -41,6 +41,8 @@ When splitting up reducers, ensure you match the state with this. This is perfor
 
 Material UI, a project which implements the guidelines set out by [Google's Material Design](https://material.io/), is really useful for handling styling by handling presentational components.
 
+[Git Flight Rules](https://github.com/k88hudson/git-flight-rules#i-need-to-add-staged-changes-to-the-previous-commit) were also useful at one point, when I didn't stage one particular file for a commit.
+
 I would recommend the following examples and resources. This was also my primary reference for design patterns.
   - [Redux Async Example](https://github.com/reactjs/redux/blob/master/examples/async)
   - [Redux 'Real-World' Example](https://github.com/reactjs/redux/blob/master/examples/real-world)

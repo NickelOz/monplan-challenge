@@ -14,6 +14,21 @@ class UnitHeader extends Component {
         showMenuIconButton={false}
         iconElementRight={
           <div>
+            {
+              // only show a 'previous/back button if there is a preceding unit to jump back to
+              this.props.hasPreviousUnit && (
+              <IconButton
+                onClick={() => this.props.loadPreviousUnit()}
+              >
+                <FontIcon
+                  className='material-icons'
+                  color='#ffffff'
+                >
+                  arrow_back
+                </FontIcon>
+              </IconButton>
+              )
+            }
             <IconButton
               onClick={() => this.props.reloadCurrentUnit()}
             >
@@ -44,6 +59,8 @@ class UnitHeader extends Component {
 
 UnitHeader.propTypes = {
   unitCode: PropTypes.string.isRequired,
+  hasPreviousUnit: PropTypes.bool.isRequired,
+  loadPreviousUnit: PropTypes.func.isRequired,
   reloadCurrentUnit: PropTypes.func.isRequired,
   clearCurrentUnit: PropTypes.func.isRequired
 }
