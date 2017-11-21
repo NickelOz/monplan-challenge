@@ -71,9 +71,9 @@ const style = {
 }
 
 UnitRequirements.propTypes = {
-  preqs = PropTypes.string.isOptional,
-  proh = PropTypes.string.isOptional,
-  updateCurrentUnit = PropTypes.func.isRequired
+  preqs: PropTypes.string,
+  proh: PropTypes.string,
+  updateCurrentUnit: PropTypes.func.isRequired
 }
 
 export default UnitRequirements

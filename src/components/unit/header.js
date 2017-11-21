@@ -43,9 +43,9 @@ class UnitHeader extends Component {
 }
 
 UnitHeader.propTypes = {
-  unitCode = PropTypes.string.isRequired,
-  reloadCurrentUnit = PropTypes.func.isRequired,
-  clearCurrentUnit = PropTypes.func.isRequired
+  unitCode: PropTypes.string.isRequired,
+  reloadCurrentUnit: PropTypes.func.isRequired,
+  clearCurrentUnit: PropTypes.func.isRequired
 }
 
 export default UnitHeader

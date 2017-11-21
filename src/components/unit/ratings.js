@@ -36,8 +36,8 @@ const style = {
 }
 
 UnitRatings.propTypes = {
-  learnScore = PropTypes.number.isRequired,
-  enjoyScore = PropTypes.number.isRequired
+  learnScore: PropTypes.number.isRequired,
+  enjoyScore: PropTypes.number.isRequired
 }
 
 export default UnitRatings

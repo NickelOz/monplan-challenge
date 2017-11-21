@@ -37,8 +37,8 @@ const style = {
 }
 
 SearchResults.propTypes = {
-  results = PropTypes.array.isRequired,
-  updateCurrentUnit = PropTypes.func.isRequired,
-  hideSearchResults = PropTypes.func.isRequired}
+  results: PropTypes.array,
+  updateCurrentUnit: PropTypes.func.isRequired,
+  hideSearchResults: PropTypes.func.isRequired}
 
 export default SearchResults

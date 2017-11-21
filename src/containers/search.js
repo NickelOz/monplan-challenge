@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { hideSearchResults, revealSearchResults, performSearch, updateCurrentUnit } from '../actions/'
+import { hideSearchResults, revealSearchResultsIfNeeded, performSearch, updateCurrentUnit } from '../actions/'
 import Search from '../components/search'
 
 class SearchContainer extends Component {
@@ -21,7 +21,7 @@ class SearchContainer extends Component {
         results={this.props.results}
         areResultsHidden={this.props.areResultsHidden}
         hideSearchResults={() => this.props.hideSearchResults()}
-        revealSearchResults={() => this.props.revealSearchResults()}
+        revealSearchResultsIfNeeded={() => this.props.revealSearchResultsIfNeeded()}
         performSearch={newQuery => this.props.performSearch(newQuery)}
         updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
       />
@@ -34,7 +34,7 @@ const mapStateToProps = state => {
     isFetching: state.allUnits.isFetching,
     didInvalidate: state.allUnits.didInvalidate,
     results: state.search.results,
-    areResultsHidden: state.search.hidden
+    areResultsHidden: state.search.areResultsHidden
   }
 }
 
@@ -43,8 +43,8 @@ const mapDispatchToProps = dispatch => {
     hideSearchResults: () => {
       dispatch(hideSearchResults())
     },
-    revealSearchResults: () => {
-      dispatch(revealSearchResults())
+    revealSearchResultsIfNeeded: () => {
+      dispatch(revealSearchResultsIfNeeded())
     },
     performSearch: query => {
       dispatch(performSearch(query))

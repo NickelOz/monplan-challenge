@@ -10,7 +10,7 @@ class SearchInput extends Component {
         hintText='Tell me about...'
         onChange={(object, newValue) => {
           this.props.performSearch(newValue)
-          this.props.revealSearchResults()
+          this.props.revealSearchResultsIfNeeded()
         }}
         style={style}
       />
@@ -24,8 +24,8 @@ const style = {
 }
 
 SearchInput.propTypes = {
-  performSearch = PropTypes.func.isRequired,
-  revealSearchResults = PropTypes.func.isRequired,
+  performSearch: PropTypes.func.isRequired,
+  revealSearchResultsIfNeeded: PropTypes.func.isRequired,
 }
 
 export default SearchInput

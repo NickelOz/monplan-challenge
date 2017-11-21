@@ -12,7 +12,7 @@ class UnitDescription extends Component {
 }
 
 UnitDescription.propTypes = {
-  description = PropTypes.string.isRequired
+  description: PropTypes.string.isRequired
 }
 
 export default UnitDescription

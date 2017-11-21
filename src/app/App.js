@@ -25,10 +25,16 @@ class App extends Component {
             <h2>Monash Unit Search Engine</h2>
           </div>
           <Search />
-          <Unit />
+          {this.props.shouldDisplayUnit && <Unit /> }
         </div>
       </div>
     )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    shouldDisplayUnit: (state.unitHistory.currentUnit !== '')
   }
 }
 
@@ -40,6 +46,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const c = connect(null, mapDispatchToProps)(App)
+const c = connect(mapStateToProps, mapDispatchToProps)(App)
 
 export default c

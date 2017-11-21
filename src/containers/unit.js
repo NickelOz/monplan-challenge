@@ -5,6 +5,10 @@ import Unit from '../components/unit/'
 import { fetchUnitDetailsIfNeeded, updateCurrentUnit, reloadCurrentUnit, clearCurrentUnit } from '../actions'
 
 class UnitContainer extends Component {
+  componentDidMount () {
+    this.props.fetchUnitDetailsIfNeeded(this.props.unitCode)
+  }
+
   componentWillReceiveProps (nextProps) {
     if (this.props.unitCode !== nextProps.unitCode) {
       this.props.fetchUnitDetailsIfNeeded(nextProps.unitCode)
@@ -41,7 +45,7 @@ const defaultUnitState = {
 }
 
 const mapStateToProps = state => {
-  const unitCode = state.currentUnit
+  const unitCode = state.unitHistory.currentUnit
   const { isFetching, didInvalidate, unitDetails } = state.cachedUnits[unitCode] || defaultUnitState
   return {
     unitCode: unitCode,

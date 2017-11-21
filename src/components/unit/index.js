@@ -97,25 +97,25 @@ const style = {
 
 Unit.propTypes  = {
   // display state
-  isFetching = PropTypes.bool.isRequired,
-  didInvalidate = PropTypes.bool.isRequired
+  isFetching: PropTypes.bool.isRequired,
+  didInvalidate: PropTypes.bool.isRequired,
   // header
-  unitCode = PropTypes.string.isRequired,
-  reloadCurrentUnit = PropTypes.func.isRequired,
-  clearCurrentUnit = PropTypes.func.isRequired,
+  unitCode: PropTypes.string.isRequired,
+  reloadCurrentUnit: PropTypes.func.isRequired,
+  clearCurrentUnit: PropTypes.func.isRequired,
   // title
-  unitName: PropTypes.string.isRequired,
-  faculty: PropTypes.string.isRequired,
-  locationAndTime: PropTypes.array.isRequired,
+  unitName: PropTypes.string,
+  faculty: PropTypes.string,
+  locationAndTime: PropTypes.array,
   // description
-  description = PropTypes.string.isRequired,
+  description: PropTypes.string,
   // ratings
-  learnScore = PropTypes.number.isRequired,
-  enjoyScore = PropTypes.number.isRequired,
+  learnScore: PropTypes.number,
+  enjoyScore: PropTypes.number,
   // requirements
-  preqs = PropTypes.string.isOptional,
-  proh = PropTypes.string.isOptional,
-  updateCurrentUnit = PropTypes.string.isRequired
+  preqs: PropTypes.string,
+  proh: PropTypes.string,
+  updateCurrentUnit: PropTypes.func
 }
 
 export default Unit

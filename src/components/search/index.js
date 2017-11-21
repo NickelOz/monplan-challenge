@@ -6,7 +6,6 @@ import RefreshIndicator from 'material-ui/RefreshIndicator'
 
 import SearchInput from './input'
 import SearchResults from './results'
-import { performSearch } from '../../actions/index';
 
 class Search extends Component {
   render () {
@@ -36,7 +35,7 @@ class Search extends Component {
       body = (
         <div>
           <SearchInput
-            revealSearchResults={() => this.props.revealSearchResults()}
+            revealSearchResultsIfNeeded={() => this.props.revealSearchResultsIfNeeded()}
             performSearch={newQuery => this.props.performSearch(newQuery)}
           />
           {(this.props.areResultsHidden || (this.props.results.length === 0)) ? null : (
@@ -68,16 +67,16 @@ const style = {
 
 Search.propTypes = {
   // display state
-  isFetching = PropTypes.bool.isRequired,
-  didInvalidate = PropTypes.bool.isRequired,
-  areResultsHidden = PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  didInvalidate: PropTypes.bool.isRequired,
+  areResultsHidden: PropTypes.bool.isRequired,
   // input
-  performSearch = PropTypes.func.isRequired,
-  revealSearchResults = PropTypes.func.isRequired,
+  performSearch: PropTypes.func.isRequired,
+  revealSearchResultsIfNeeded: PropTypes.func.isRequired,
   // results
-  results = PropTypes.array.isRequired,
-  updateCurrentUnit = PropTypes.func.isRequired,
-  hideSearchResults = PropTypes.func.isRequired
+  results: PropTypes.array,
+  updateCurrentUnit: PropTypes.func.isRequired,
+  hideSearchResults: PropTypes.func.isRequired
 }
 
 export default Search
