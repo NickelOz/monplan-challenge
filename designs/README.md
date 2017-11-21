@@ -1,4 +1,7 @@
 ## Design 1 - Divided Screen
+
+![The splitscreen design, with the search area on one side and the units on the other](https://github.com/NickelOz/monplan-challenge/blob/master/designs/images/splitscreen.jpg)
+
 This design focused around splitting the UI into a search section and a result sections. It was abandoned because I couldn't figure out how to adapt it to a mobile-friendly form, without making any single component too small or forcing the user to perform copius amounts of navigation.
 
 #### Pros
@@ -11,9 +14,11 @@ This design focused around splitting the UI into a search section and a result s
 #### Conclusion
 This design is difficult to fit to a smaller mobile screen. Being able to view multiple units simulatenous could prove useful for other projects, such as a course planner *(wink, wink)*
 
-![The splitscreen design, with the search area on one side and the units on the other](https://github.com/NickelOz/monplan-challenge/blob/master/designs/images/splitscreen.jpg)
 
 ## Design 2 - Vertical Flow
+
+![The various sections of the app aligned to flow down the page](https://github.com/NickelOz/monplan-challenge/blob/master/designs/images/downflow.jpg)
+
 This was the layout I favoured more, where the more spacious, centred layout. This would allow for the search results, and then the unit details to flow down the page. This is also much easier to scale for mobile devices, by fitting it to portrait mode.
 
 #### Pros
@@ -25,9 +30,12 @@ This was the layout I favoured more, where the more spacious, centred layout. Th
 #### Conclusion
 This was the design I went with in the end, as I figured the compromise between constantly displaying static search results making them disappear was to have it collapse. If the user began searching for a new unit, this could then expand to display once again.
 
-![The various sections of the app aligned to flow down the page](https://github.com/NickelOz/monplan-challenge/blob/master/designs/images/downflow.jpg)
+
 
 ## Design 3 - Interchanging Search Results and Unit Information
+
+![The search bar has been moved to the top, and the search results and unit information now interchange depending on the use case](https://github.com/NickelOz/monplan-challenge/blob/master/designs/images/hidden.jpg)
+
 This focused more around trying to hide/obscure unused elements. For example, when a user is entering search terms, they would only see the search results, and the current unit information would disappear. Once they selected a unit, the search results would collapse/disappear to bring up the unit information. I figured that this would be too drastic a change for users to adapt too, so it was dropped.
 
 #### Pros
@@ -40,7 +48,6 @@ This focused more around trying to hide/obscure unused elements. For example, wh
 #### Conclusion
 This was similar to the second design, but better handled displaying search results and unit information within the same space for smaller screen. This was compromised by having the search results collapse when needed.
 
-![The search bar has been moved to the top, and the search results and unit information now interchange depending on the use case](https://github.com/NickelOz/monplan-challenge/blob/master/designs/images/hidden.jpg)
 
 
 ## Displaying Unit Information
