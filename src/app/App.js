@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import 'whatwg-fetch'
 import { connect } from 'react-redux'
 import { fetchAllUnits } from '../actions'
-// import logo from './logo.svg'
-import './App.css'
+
 import Search from '../containers/search'
 import Unit from '../containers/unit'
 import Header from '../components/header'
+
+import './App.css'
 
 class App extends Component {
   componentDidMount () {

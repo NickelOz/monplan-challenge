@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class UnitTitle extends Component {
   render () {
@@ -14,6 +15,12 @@ class UnitTitle extends Component {
       </div>
     )
   }
+}
+
+UnitTitle.propTypes = {
+  unitName: PropTypes.string.isRequired,
+  faculty: PropTypes.string.isRequired,
+  locationAndTime: PropTypes.array.isRequired
 }
 
 export default UnitTitle

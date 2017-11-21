@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+
 import AppBar from 'material-ui/AppBar'
+
 import logo from './logo.svg'
 
 class Header extends Component {

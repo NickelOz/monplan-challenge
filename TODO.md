@@ -11,6 +11,7 @@
   [x] Generate buttons linking relevant units for pre-reqs/prohibitions
   [ ] Ensure these buttons do not link to expired units (disable/red filter)
   [ ] Handle missing information (no pre-reqs, no location)
+  [ ] Allow for 'back/previous' unit (stack of previous units that updates with each new unit load?)
 
 #### Code Flow
   [x] Handle API calls through redux-thunk, passing requests and responses as actions
@@ -24,8 +25,8 @@
   [ ] Develop a theme to pass down the the MaterialTheme Provider
 
 ## GENERAL NOTES
-
-  - Used redux-logger and redux-thunk to handle API requests and trace errors
+  - To check the correct/necessary props are passed to components, use the accompoanying library prop-types (Another option is jest, but this was not used in this case)
+  - Used redux-logger and redux-thunk to handle API requests and trace errors in action/reducers
   - Material UI is great for handling layout
 
 ## THINGS I LEARNED

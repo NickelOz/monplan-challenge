@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import Paper from 'material-ui/Paper'
 import Divider from 'material-ui/Divider'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
@@ -91,6 +93,29 @@ const style = {
   loading: {
     position: 'relative'
   }
+}
+
+Unit.propTypes  = {
+  // display state
+  isFetching = PropTypes.bool.isRequired,
+  didInvalidate = PropTypes.bool.isRequired
+  // header
+  unitCode = PropTypes.string.isRequired,
+  reloadCurrentUnit = PropTypes.func.isRequired,
+  clearCurrentUnit = PropTypes.func.isRequired,
+  // title
+  unitName: PropTypes.string.isRequired,
+  faculty: PropTypes.string.isRequired,
+  locationAndTime: PropTypes.array.isRequired,
+  // description
+  description = PropTypes.string.isRequired,
+  // ratings
+  learnScore = PropTypes.number.isRequired,
+  enjoyScore = PropTypes.number.isRequired,
+  // requirements
+  preqs = PropTypes.string.isOptional,
+  proh = PropTypes.string.isOptional,
+  updateCurrentUnit = PropTypes.string.isRequired
 }
 
 export default Unit

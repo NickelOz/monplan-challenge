@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import TextField from 'material-ui/TextField'
 
 class SearchInput extends Component {
@@ -10,7 +12,6 @@ class SearchInput extends Component {
           this.props.performSearch(newValue)
           this.props.revealSearchResults()
         }}
-        disabled={this.props.isFetching || this.props.didInvalidate}
         style={style}
       />
     )
@@ -20,6 +21,11 @@ class SearchInput extends Component {
 const style = {
   width: '80%',
   fontSize: '24px'
+}
+
+SearchInput.propTypes = {
+  performSearch = PropTypes.func.isRequired,
+  revealSearchResults = PropTypes.func.isRequired,
 }
 
 export default SearchInput

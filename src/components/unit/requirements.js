@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import Chip from 'material-ui/Chip'
 
 class UnitRequirements extends Component {
@@ -12,25 +14,25 @@ class UnitRequirements extends Component {
       <div className='App-unitRequirements'>
         <div className='App-unitPreqs'>
           <h3>Prerequisites</h3>
-          <p>
+          <div>
             {
               // detect any units and convert them into buttons, other leave the text untouched
               this.extractUnits(this.props.preqs).map(phrase => {
                 return (phrase)
               })
             }
-          </p>
+          </div>
         </div>
         <div className='App-unitProh'>
           <h3>Prohibitions</h3>
-          <p>
+          <div>
             {
               // detect any units and convert them into buttons, other leave the text untouched
               this.extractUnits(this.props.proh).map(phrase => {
                 return (phrase)
               })
             }
-          </p>
+          </div>
         </div>
       </div>
     )
@@ -66,6 +68,12 @@ class UnitRequirements extends Component {
 const style = {
   display: 'inline',
   padding: '2px 0'
+}
+
+UnitRequirements.propTypes = {
+  preqs = PropTypes.string.isOptional,
+  proh = PropTypes.string.isOptional,
+  updateCurrentUnit = PropTypes.func.isRequired
 }
 
 export default UnitRequirements

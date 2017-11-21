@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import { List, ListItem } from 'material-ui/List'
 
 class SearchResults extends Component {
@@ -17,6 +19,7 @@ class SearchResults extends Component {
                     this.props.hideSearchResults()
                   }}
                   style={style}
+                  key={index + 1}
                 />
               )
             } else {
@@ -32,5 +35,10 @@ class SearchResults extends Component {
 const style = {
   fontWeight: '600'
 }
+
+SearchResults.propTypes = {
+  results = PropTypes.array.isRequired,
+  updateCurrentUnit = PropTypes.func.isRequired,
+  hideSearchResults = PropTypes.func.isRequired}
 
 export default SearchResults

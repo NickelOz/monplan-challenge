@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import Paper from 'material-ui/Paper'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
+
 import SearchInput from './input'
 import SearchResults from './results'
+import { performSearch } from '../../actions/index';
 
 class Search extends Component {
   render () {
@@ -60,6 +64,20 @@ const style = {
   indicator: {
     position: 'relative'
   }
+}
+
+Search.propTypes = {
+  // display state
+  isFetching = PropTypes.bool.isRequired,
+  didInvalidate = PropTypes.bool.isRequired,
+  areResultsHidden = PropTypes.bool.isRequired,
+  // input
+  performSearch = PropTypes.func.isRequired,
+  revealSearchResults = PropTypes.func.isRequired,
+  // results
+  results = PropTypes.array.isRequired,
+  updateCurrentUnit = PropTypes.func.isRequired,
+  hideSearchResults = PropTypes.func.isRequired
 }
 
 export default Search
