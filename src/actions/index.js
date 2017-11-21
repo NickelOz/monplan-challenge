@@ -173,7 +173,7 @@ export const fetchUnitDetailsIfNeeded = unitCode => {
 
 export const reloadCurrentUnit = () => {
   return (dispatch, getState) => {
-    const currentUnit = getState().currentUnit
+    const currentUnit = getState().unitHistory.currentUnit
     dispatch(fetchUnitDetails(currentUnit))
   }
 }
