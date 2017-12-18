@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import {
+  hideSearchResults,
+  revealSearchResultsIfNeeded,
+  performSearch,
+  updateCurrentUnit
+} from '../../actions'
 
 import Paper from 'material-ui/Paper'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
@@ -79,4 +86,30 @@ Search.propTypes = {
   hideSearchResults: PropTypes.func.isRequired
 }
 
-export default Search
+const mapStateToProps = state => {
+  return {
+    isFetching: state.allUnits.isFetching,
+    didInvalidate: state.allUnits.didInvalidate,
+    results: state.search.results,
+    areResultsHidden: state.search.areResultsHidden
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    hideSearchResults: () => {
+      dispatch(hideSearchResults())
+    },
+    revealSearchResultsIfNeeded: () => {
+      dispatch(revealSearchResultsIfNeeded())
+    },
+    performSearch: query => {
+      dispatch(performSearch(query))
+    },
+    updateCurrentUnit: unitCode => {
+      dispatch(updateCurrentUnit(unitCode))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchAllUnits } from '../actions'
 
-import Search from '../containers/search'
-import Unit from '../containers/unit'
+import Search from '../components/search'
+import Unit from '../components/unit'
 import Header from '../components/header'
 
 import './App.css'

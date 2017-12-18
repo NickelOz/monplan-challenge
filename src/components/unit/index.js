@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import {
+  fetchUnitDetailsIfNeeded,
+  updateCurrentUnit,
+  loadPreviousUnit,
+  reloadCurrentUnit,
+  clearCurrentUnit
+} from '../../actions'
 
 import Paper from 'material-ui/Paper'
 import Divider from 'material-ui/Divider'
@@ -12,6 +20,23 @@ import UnitRatings from './ratings'
 import UnitRequirements from './requirements'
 
 class Unit extends Component {
+  componentDidMount () {
+    this.props.fetchUnitDetailsIfNeeded(this.props.unitCode)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.unitCode !== nextProps.unitCode) {
+      this.props.fetchUnitDetailsIfNeeded(nextProps.unitCode)
+    }
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    return (
+      this.props.unitCode !== nextProps.unitCode ||
+      this.props.isFetching !== nextProps.isFetching ||
+      this.props.didInvalidate !== nextProps.didInvalidate
+    )
+  }
   render () {
     // determine how the inner workings of the unit should be displayed
     let body = null
@@ -93,29 +118,58 @@ const style = {
   }
 }
 
-Unit.propTypes  = {
-  // display state
+Unit.propTypes = {
+  // status of current unit
   isFetching: PropTypes.bool.isRequired,
   didInvalidate: PropTypes.bool.isRequired,
-  // header
+  // unit details (title, desc, preqs, prohs...)
   unitCode: PropTypes.string.isRequired,
   hasPreviousUnit: PropTypes.bool.isRequired,
+  unitDetails: PropTypes.object.isRequired,
+  // callbacks
+  fetchUnitDetailsIfNeeded: PropTypes.func.isRequired,
+  updateCurrentUnit: PropTypes.func.isRequired,
   loadPreviousUnit: PropTypes.func.isRequired,
   reloadCurrentUnit: PropTypes.func.isRequired,
-  clearCurrentUnit: PropTypes.func.isRequired,
-  // title
-  unitName: PropTypes.string,
-  faculty: PropTypes.string,
-  locationAndTime: PropTypes.array,
-  // description
-  description: PropTypes.string,
-  // ratings
-  learnScore: PropTypes.number,
-  enjoyScore: PropTypes.number,
-  // requirements
-  preqs: PropTypes.string,
-  proh: PropTypes.string,
-  updateCurrentUnit: PropTypes.func
+  clearCurrentUnit: PropTypes.func.isRequired
 }
 
-export default Unit
+const mapStateToProps = state => {
+  const unitCode = state.unitHistory.currentUnit
+  // default to
+  const { isFetching, didInvalidate, unitDetails } = state.cachedUnits[unitCode] || {
+    isFetching: true,
+    didInvalidate: false,
+    unitDetails: {}
+  }
+  const hasPreviousUnit = state.unitHistory.hasPreviousUnit
+  return {
+    unitCode: unitCode,
+    isFetching: isFetching,
+    didInvalidate: didInvalidate,
+    unitDetails: unitDetails,
+    hasPreviousUnit: hasPreviousUnit
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchUnitDetailsIfNeeded: unitCode => {
+      dispatch(fetchUnitDetailsIfNeeded(unitCode))
+    },
+    updateCurrentUnit: unitCode => {
+      dispatch(updateCurrentUnit(unitCode))
+    },
+    loadPreviousUnit: () => {
+      dispatch(loadPreviousUnit())
+    },
+    reloadCurrentUnit: () => {
+      dispatch(reloadCurrentUnit())
+    },
+    clearCurrentUnit: () => {
+      dispatch(clearCurrentUnit())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Unit)
