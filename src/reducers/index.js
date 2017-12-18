@@ -5,7 +5,7 @@ import {
   ALL_UNITS_REQUEST, ALL_UNITS_SUCCESS, ALL_UNITS_FAILURE,
   UPDATE_CURRENT_UNIT, LOAD_PREVIOUS_UNIT, CLEAR_CURRENT_UNIT,
   UNIT_DETAILS_REQUEST, UNIT_DETAILS_SUCCESS, UNIT_DETAILS_FAILURE
- } from '../actions/'
+ } from '../actions/constants'
 
 const defaultSearchState = {
   query: '',
