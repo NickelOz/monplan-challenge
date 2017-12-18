@@ -13,6 +13,8 @@ class UnitRatings extends Component {
           <LinearProgress
             mode='determinate'
             value={this.props.learnScore}
+            // ratings are given on a scale from 1-5, not 0-5!
+            min={1}
             max={5}
             style={style}
           />
@@ -22,6 +24,8 @@ class UnitRatings extends Component {
           <LinearProgress
             mode='determinate'
             value={this.props.enjoyScore}
+            // ratings are given on a scale from 1-5, not 0-5!
+            min={1}
             max={5}
             style={style}
           />

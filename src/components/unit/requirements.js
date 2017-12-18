@@ -18,8 +18,8 @@ class UnitRequirements extends Component {
             {
               // detect any units and convert them into buttons, other leave the text untouched
               (this.props.preqs === '') ? 'None' : (
-                this.extractUnits(this.props.preqs).map(phrase => {
-                  return (phrase)
+                this.extractUnits(this.props.preqs).map((phrase, index) => {
+                  return (<span key={index}>{phrase}</span>)
                 })
               )
             }
@@ -31,8 +31,8 @@ class UnitRequirements extends Component {
             {
               // detect any units and convert them into buttons, other leave the text untouched
               (this.props.proh === '') ? 'None' : (
-                this.extractUnits(this.props.proh).map(phrase => {
-                  return (phrase)
+                this.extractUnits(this.props.proh).map((phrase, index) => {
+                  return (<span key={index}>{phrase}</span>)
                 })
               )
             }
