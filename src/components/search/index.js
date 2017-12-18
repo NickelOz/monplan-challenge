@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
-  hideSearchResults,
-  revealSearchResultsIfNeeded,
   performSearch,
   updateCurrentUnit
 } from '../../actions'
@@ -15,6 +13,40 @@ import SearchInput from './input'
 import SearchResults from './results'
 
 class Search extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      areResultsHidden: true
+    }
+  }
+
+  hideResults () {
+    this.setState({
+      areResultsHidden: true
+    })
+  }
+
+  revealResults () {
+    this.setState({
+      areResultsHidden: false
+    })
+  }
+
+  revealResultsIfNeeded () {
+    if (this.state.areResultsHidden === true) {
+      this.revealResults()
+    }
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    return (
+      this.props.isFetching !== nextProps.isFetching ||
+      this.props.didInvalidate !== nextProps.didInvalidate ||
+      this.props.results !== nextProps.results ||
+      this.state.areResultsHidden !== nextState.areResultsHidden
+    )
+  }
+
   render () {
     let body
     if (this.props.isFetching) {
@@ -42,13 +74,13 @@ class Search extends Component {
       body = (
         <div>
           <SearchInput
-            revealSearchResultsIfNeeded={() => this.props.revealSearchResultsIfNeeded()}
+            revealSearchResultsIfNeeded={this.revealResultsIfNeeded.bind(this)}
             performSearch={newQuery => this.props.performSearch(newQuery)}
           />
-          {(this.props.areResultsHidden || (this.props.results.length === 0)) ? null : (
+          {(this.state.areResultsHidden || (this.props.results.length === 0)) ? null : (
             <SearchResults
               results={this.props.results}
-              hideSearchResults={() => this.props.hideSearchResults()}
+              hideSearchResults={this.hideResults.bind(this)}
               updateCurrentUnit={unitCode => this.props.updateCurrentUnit(unitCode)}
             />
           )}
@@ -76,33 +108,23 @@ Search.propTypes = {
   // display state
   isFetching: PropTypes.bool.isRequired,
   didInvalidate: PropTypes.bool.isRequired,
-  areResultsHidden: PropTypes.bool.isRequired,
   // input
   performSearch: PropTypes.func.isRequired,
-  revealSearchResultsIfNeeded: PropTypes.func.isRequired,
   // results
   results: PropTypes.array,
-  updateCurrentUnit: PropTypes.func.isRequired,
-  hideSearchResults: PropTypes.func.isRequired
+  updateCurrentUnit: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {
   return {
     isFetching: state.allUnits.isFetching,
     didInvalidate: state.allUnits.didInvalidate,
-    results: state.search.results,
-    areResultsHidden: state.search.areResultsHidden
+    results: state.search.results
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    hideSearchResults: () => {
-      dispatch(hideSearchResults())
-    },
-    revealSearchResultsIfNeeded: () => {
-      dispatch(revealSearchResultsIfNeeded())
-    },
     performSearch: query => {
       dispatch(performSearch(query))
     },

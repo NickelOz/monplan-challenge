@@ -1,20 +1,11 @@
 import {
   UPDATE_SEARCH_QUERY,
-  HIDE_SEARCH_RESULTS, REVEAL_SEARCH_RESULTS,
   REQUEST_SEARCH_RESULTS, RECEIVE_SEARCH_RESULTS
 } from './constants'
 
 export const updateSearchQuery = query => ({
   type: UPDATE_SEARCH_QUERY,
   query
-})
-
-export const hideSearchResults = () => ({
-  type: HIDE_SEARCH_RESULTS
-})
-
-export const revealSearchResults = () => ({
-  type: REVEAL_SEARCH_RESULTS
 })
 
 export const requestSearchResults = () => ({
@@ -26,15 +17,6 @@ export const receiveSearchResults = (query, items) => ({
   query,
   items
 })
-
-export const revealSearchResultsIfNeeded = () => {
-  return (dispatch, getState) => {
-    const areResultsHidden = getState().search.areResultsHidden
-    if (areResultsHidden) {
-      dispatch(revealSearchResults())
-    }
-  }
-}
 
 export const performSearch = query => {
   return (dispatch, getState) => {

@@ -1,13 +1,11 @@
 import {
   UPDATE_SEARCH_QUERY,
-  HIDE_SEARCH_RESULTS, REVEAL_SEARCH_RESULTS,
   REQUEST_SEARCH_RESULTS, RECEIVE_SEARCH_RESULTS
 } from '../actions/constants'
 
 const DEFAULT_STATE = {
   query: '',
-  results: [],
-  areResultsHidden: true
+  results: []
 }
 
 const search = (state = DEFAULT_STATE, action) => {
@@ -16,18 +14,6 @@ const search = (state = DEFAULT_STATE, action) => {
       return Object.assign({}, state,
         {
           query: action.query
-        }
-      )
-    case HIDE_SEARCH_RESULTS:
-      return Object.assign({}, state,
-        {
-          areResultsHidden: true
-        }
-      )
-    case REVEAL_SEARCH_RESULTS:
-      return Object.assign({}, state,
-        {
-          areResultsHidden: false
         }
       )
     case REQUEST_SEARCH_RESULTS:
