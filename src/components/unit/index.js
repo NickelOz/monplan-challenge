@@ -21,7 +21,7 @@ import UnitRequirements from './requirements'
 
 class Unit extends Component {
   componentDidMount () {
-    this.props.fetchUnitDetailsIfNeeded(this.props.unitCode)
+    this.props.updateCurrentUnit(this.props.match.params.unitCode.toUpperCase())
   }
 
   componentWillReceiveProps (nextProps) {
